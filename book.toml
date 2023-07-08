@@ -1,0 +1,6 @@
+[book]
+authors = ["Kostas Vlachos"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Bld book"
