@@ -5,8 +5,6 @@
 # What is Bld
 Bld is a CI/CD tool that targets to build pipelines both in a local environment and in a server.
 
-A couple of years back when setting up a home lab, I had the problem with all the CI/CD projects being either cloud only or a local deployment required to run a server. So the inception for the tool was to be able to run pipelines locally the same way they would run on a server. Once that was done, a server mode was added in order to dispatch builds on other machines.
-
 # Building
 Bld is built using the Rust programming language so you will need a [Rust installation](https://www.rust-lang.org/tools/install) in order to compile it.
 
@@ -34,13 +32,23 @@ Since there are multiple dependencies deployment of bld can be difficult, so the
 
 ```bash
 $ bld run -p build-musl.yaml
-$ ls dist/bld
+$ ls dist
 ```
+
+Or you can use cargo to built bld for your system and then run the pipelines for the musl build
+```bash
+$ cargo run -- run -p build-musl.yaml
+$ ls dist
+```
+
 With the above a new container will be built with all the necessary dependencies for building the project and the bld pipeline will clone the repository, build the binary and the copy it in the musl/dist directory.
 
 If a bld binary is not available, you will have to start a container with the bld-musl-builder and do the steps manually.
 
 > The project currently targets only Linux. It has not been tested on Windows or Macos.
+
+# Installation
+For a prebuilt version of bld go to the github [releases](https://github.com/Kani-Maki-Gang/bld/releases) page and download the latest version.
 
 # Creating a project
 If you have followed the above Building section and have a Bld binary available, you can execute the below commands to initialize a Bld directory.
@@ -82,6 +90,87 @@ And the pipelines can be run with their relative path inside the `.bld` director
 $ bld run -p sample/build.yaml
 $ bld run -p sample/deploy.yaml
 ```
+
+# Quick pipeline example
+If you want a quick example of how a more involed pipeline would look, lets take the below example that tries to build a .net project and also run static analysis that will be sent to a sonar qube instance.
+
+This is the example pipeline that runs the scanner called `example-project/scanner.yaml`
+```yaml
+name: Example .net project sonar scanner pipeline
+version: 2
+runs_on:
+  dockerfile: /path/to/custom-dockerfile-for-scanner
+  tag: latest
+  name: scanner
+
+variables:
+  branch: master
+  key: ExampleProject
+  url: http://some-url-for-sonar-qube
+  login: some_login_token
+
+jobs:
+  main:
+  - git clone ${{branch}} https://some-url-for-the-repository
+  - working_dir: /example-project/src
+    exec:
+    - dotnet sonarscanner begin /k:"${{key}}" /d:sonar.host.url=${{url}} /d:sonar.login="${{login}}"
+    - dotnet build
+    - dotnet sonarscanner end /d:sonar.login="${{login}}"
+```
+
+This is the example pipeline that builds the release version of the project called `example-project/build.yaml`
+```yaml
+name: Example project build pipeline
+version: 2
+runs_on:
+  image: mcr.microsoft.com/dotnet/sdk:6.0-focal
+  pull: true
+
+variables:
+  branch: master
+  config: release
+
+artifacts:
+- method: get
+  from: /example-project/src/ExampleProject/bin/${{config}}/net6.0/linux-x64
+  to: /some/local/path/example-project/${{bld_run_id}}
+  after: main
+
+jobs:
+  main:
+  - git clone -b ${{branch}} https://some-url-for-the-repository
+  - cd /example-project/src/ExampleProject && dotnet build -c ${{config}}
+```
+
+This is the example pipeline called `example-project/deploy.yaml` that runs on the host machine that initiates both pipelines in parallel and also makes a simple deployment of the release build.
+```yaml
+name: Example project deployment pipeline
+version: 2
+runs_on: machine
+
+variables:
+  branch: master
+
+external:
+- pipeline: example-project/sonar.yaml
+  variables:
+    branch: ${{branch}}
+
+- pipeline: example-project/build.yaml
+  variables:
+    branch: ${{branch}}
+
+jobs:
+  scanner:
+  - ext: example-project/scanner.yaml
+
+  build_and_deploy:
+  - ext: example-project/build.yaml
+  - scp -r /some/local/path/example-project/${{bld_run_id}} user@some-ip:/some/path/to/the/server
+```
+
+> In the above the scanner pipeline runs parallel to the build and deploy since they are set in 2 different jobs. If everything should be run sequentially then the call to the scanner pipeline could be added to the same job as the other steps.
 
 # Graceful shutdown
 Since each run could create and run container as well as issue remote runs to bld servers, the cli handles the SIGINT and SIGTERM signals in order to properly cleanup all of the external components. To be noted that the stop command which stops a pipeline running on a server, can be used for a graceful early shutdown of a pipeline.

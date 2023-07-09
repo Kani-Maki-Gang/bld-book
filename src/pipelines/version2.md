@@ -172,6 +172,14 @@ $ bld run -p example.yaml -e first_directory=some_path -e second_directory=some_
 
 > Note: The environment variable fields support expressions so a variable, an environment variable or a built in constant can be used as a environment variable's default value.
 
+# Keywords
+This isn't related to any field available to the pipeline syntax but more regarding the expressions. Bld has some built in keywords for specific information about a run, those are
+* __bld_root_dir__: This is the path to the .bld directory of the project.
+* __bld_run_id__: This is the unique uuid for the pipeline run.
+* __bld_start_time__: The start time of the pipeline run.
+
+> All of the above can be used with the expression syntax similar to a variable and environment variable e.g. ${{bld_root_dir}}
+
 # Artifacts
 This section can be used to send or fetch files to or from a container created by a run. For example let say we create a pipeline that will create a file in an `ubuntu` container and then fetch it on the current machine.
 

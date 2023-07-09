@@ -32,6 +32,7 @@ ability mode.
 
 * __logs__: A path to a directory where the logs for each server run will be stored.
 * __db__: A path to a directory where the database file for the server will be created.
+* __editor__: The name or path to your editor of choice for editing a pipeline through the bld cli.
 
 # Remote configuration
 The `remote` section of the config file is an array of servers that can be targeted. The available options are below.
@@ -70,6 +71,7 @@ local:
   logs: .bld/logs
   db: .bld/db
   docker-url: tcp://127.0.0.1:2376
+  editor: vim
 
 remote:
 - server: local_1
