@@ -1,11 +1,11 @@
 # Pipeline V2 syntax
 
-This page is dedicated in explaining the syntax of the version 2 pipeline files with examples.
+This page explains the syntax of the version 2 pipeline files with examples.
 
 # Top level statements
 The list of top level sections for a pipeline are:
-- __version__: The pipeline syntax version. This helps with backwards compatibility and to target the version 2 pipelines it should always be 2.
-- __name__(optional): A name that will be printed on the execution log.
+- __version__: The pipeline syntax version. This helps with backwards compatibility and to target this version pipelines it should always be 2.
+- __name__(optional): A name that will be printed on the execution log
 - __runs_on__: The platform configuration that can either be `machine` or a set of options for a docker image.
 - __cron__(optional): A text value that should represent a schedule of automatic execution for the pipeline that uses the cron syntax.
 - __dispose__(optional): A boolean value that when set to true will not clean up after a run.
@@ -26,10 +26,7 @@ version: 2
 
 jobs:
   main:
-  - name: List all content of target_directory
-    working_dir: /home/user/target_directory
-    exec:
-    - ls
+  - ls /home/user/target_directory
 ```
 
 # Version
@@ -98,7 +95,7 @@ Specifically
 - For container runs the container itself will not be stopped and removed.
 
 # Variables
-The variables section is a hashmap where the key is the variable name and the value is its default value. The value of a variable can be modified the user when running the pipeline.
+The variables section is a hashmap where the key is the variable name and the value is its default value. The value of a variable can be modified by the user when running the pipeline.
 
 Based on the first example, that was rather specific, we could enhance our pipeline with a variable to either list the content of the target_directory or another one specified when using the `run` subcommand. Below is a configured pipeline with a variable
 
@@ -112,13 +109,10 @@ variables:
 
 jobs:
   main:
-  - name: List all content of target_directory
-    working_dir: ${{directory}}
-    exec:
-    - ls
+  - ls ${{directory}}
 ```
 
-Here we see the syntax for using a Bld variable, configuring its name and default value. It can be used with the format `${{variable_name}}` and using the name `directory` for the variable name. You can run the pipeline normally and leave the value as is or you can use the `-v` or `--variable` option of the `run` subcommand
+Here we see the syntax for using a Bld variable, configuring its name and default value. It can be used with the format `${{directory}}` with the target variable name inside the curly braces. You can run the pipeline normally and leave the value as is or you can use the `-v` or `--variable` option of the `run` subcommand
 
 ```bash
 $ bld run -p example.yaml -v directory=/home/kvl/another_directory
@@ -147,7 +141,7 @@ And set new values using the cli
 ```bash
 $ bld run -p example.yaml -v first_directory=some_path -v second_directory=some_other_path -v third_directory=some_yet_another_path
 ```
-> Note: The variable fields support expressions so a variable, an environment variable or a built in constant can be used as a variable value.
+> Note: The variable fields support expressions so a variable, an environment variable or a built in constant can be used as a variable's default value.
 
 # Environment variables
 Same with the variables section, the environment variables section is a hashmap where the key is the variable name and the value is its default value. The value of an environment variable can be modified the user when running the pipeline.
@@ -176,7 +170,7 @@ And specify a different value using the `-e` or `--environment` of the `run` sub
 $ bld run -p example.yaml -e first_directory=some_path -e second_directory=some_other_path
 ```
 
-> Note: The environment variable fields support expressions so a variable, an environment variable or a built in constant can be used as a environment variable value.
+> Note: The environment variable fields support expressions so a variable, an environment variable or a built in constant can be used as a environment variable's default value.
 
 # Artifacts
 This section can be used to send or fetch files to or from a container created by a run. For example let say we create a pipeline that will create a file in an `ubuntu` container and then fetch it on the current machine.
@@ -198,7 +192,7 @@ jobs:
 
 ```
 
-The artifacts section supports methods `get` to retrieve files and `push` to send files to the container. Additionally the `after` section can be omitted in order for the operation to execute before any step. Additionally the `after` field can specify a step instead of a job.
+The artifacts section supports methods `get` to retrieve files and `push` to send files to the container. The `after` field can specify a step instead of a job or it can be omitted in order for the operation to execute before any job or step.
 
 ```yaml
 name: Example pipeline for artifacts
@@ -221,31 +215,76 @@ jobs:
     - echo 'hello again'
 ```
 
-> Note: The artifacts section support expressions so a variable, an environment variable or a built in constant can be used in the from, to and after fields.
+> Note: The artifacts section support expressions so a variable, an environment variable or a built in constant can be used in the `from`, `to` and `after` fields.
 
 # External
-The `external` section can used to declare information about another pipeline (either local or on a remote server) and be invoked by steps section. Let's see an example with a parent pipeline called `parent.yaml` that needs to execute a child pipeline called `child.yaml`.
+The `external` section can used to declare information about another pipeline (either local or on a remote server) and be invoked by jobs.
 
+Lets see all 3 ways that an external pipeline can be called. The first way is to simply call it in the exec part of a step.
 ```yaml
-pipeline: Parent pipeline
 runs_on: ubuntu
-version: 1
+version: 2
 
-external:
-- pipeline: child.yaml
-
-steps:
-- name: Do execute child
-  exec:
+jobs:
+  main:
   - ext: child.yaml
 ```
 
-The above is the simplest form of executing another pipeline locally, but a server option can be provided if the run of the child pipeline needs to be done in another machine. Lets change the above example in order to invoke the child pipeline to a Bld server called `demo`.
+The second way is to define a new entry to the external section for the pipeline. This will pick up any values for variables and environment variables are desired for the invokation.
+
+```yaml
+runs_on: ubuntu
+version: 2
+
+external:
+- pipeline: child.yaml
+  variables:
+    some-variable: an example value
+
+jobs:
+  main:
+  - ext: child.yaml
+```
+
+The third way is to use a name in the external entries which can even have the same pipelines but with different declarations.
+
+```yaml
+runs_on: ubuntu
+version: 2
+
+variables:
+  some-variable: an examples value
+
+external:
+- name: Call child.yaml with a variable
+  pipeline: child.yaml
+  variables:
+    some-variable: ${{some-variable}}
+
+- name: Call child.yaml on a server
+  pipeline: child.yaml
+  server: demo_server
+  variables:
+    some-variable: an example value
+
+- name: Call child-2.yaml on a server
+  pipeline: child-2.yaml
+  server: demo_server
+
+jobs:
+  main:
+  - ext: Call child.yaml with a variable
+  - ext: Call child.yaml on a server
+  - ext: Call child-2.yaml on a server
+```
+
+
+In the external section you can define a server in order to invoke the child pipeline to a Bld server. For example let see the below example that invokes a pipeline to a server called `demo`.
 
 ```yaml
 pipeline: Parent pipeline
 runs_on: ubuntu
-version: 1
+version: 2
 
 external:
 - pipeline: child.yaml
@@ -265,97 +304,79 @@ external:
   pipeline: child.yaml
   variables:
   - variable1: hello
-  - variable2: world
+  - variable2: ${{some_variable}}
   environment:
   - env1: hello world
 ```
 
-Lets see all 3 ways that an external pipeline can be called. The first way is to simply call it in the exec part of a step.
-```yaml
-runs_on: ubuntu
-version: 1
 
-steps:
-- exec:
-  - ext: child.yaml
+> Note: The external section support expressions so a variable, an environment variable or a built in constant can be used in the `name`, `server`, `pipeline`, `variables` and `environment` fields.
+
+# Jobs
+The `jobs` section describes a set of parallel commands to be executed or external pipelines to be invoked. All jobs contain a number of steps with steps having mutliple representation for the level of complexity they want to achieve.
+
+Let's take a look at an example where a pipeline will execute a single job with multiple steps that print a message to stdout.
+```yaml
+name: Example pipeline
+runs_on: machine
+version: 2
+
+jobs:
+  main:
+  - echo 'hello world'
+  - echo 'hello again'
+  - echo 'goodbye'
 ```
 
-The second way is to define a new entry to the external section for the pipeline. This will pick up any values for variables and environment variables are desired for the invokation.
-
+If you've read the previous section for the external pipelines, you will already know that by using the `ext:` on one of a job's step, the action taken is to invoke that pipeline, based on the external configuration (if no configuration is present the pipeline is simply run locally).
 ```yaml
-runs_on: ubuntu
-version: 1
+name: Example pipeline
+runs_on: machine
+version: 2
 
-external:
-- pipeline: child.yaml
-  variables:
-    some-variable: an example value
-
-steps:
-- exec:
-  - ext: child.yaml
+jobs:
+  main:
+  - ext: example-pipeline-1.yaml
+  - ext: example-pipeline-2.yaml
+  - echo 'hello'
 ```
 
-The third way is to use a name in the external entries in order to have different declarations for the same pipeline.
-
-```yaml
-runs_on: ubuntu
-version: 1
-
-external:
-- name: Call child.yaml with a variable
-  pipeline: child.yaml
-  variables:
-    some-variable: an example value
-
-- name: Call child.yaml on a server
-  pipeline: child.yaml
-  server: demo_server
-  variables:
-    some-variable: an example value
-
-steps:
-- exec:
-  - ext: Call child.yaml with a variable
-  - ext: Call child.yaml on a server
-```
-
-# Steps
-The `steps` section describes a set of commands to be executed or external pipelines to be invoked. Lets look at an example where there are multiple steps in a pipeline for listing contents of a directory, creating a sample file and using curl to see the IP address of the machine.
+if a step requires more refined operations such as executing many actions you can define a `name` and an `exec` list.
 
 ```yaml
 name: Example pipeline for multiple steps
 runs_on: machine
-version: 1
+version: 2
 
-steps:
-- name: List the content of directories
-  exec:
-  - ls ./some_directory
-  - ls ./some_other_directory
-  - ls ./yet_another_directory
+jobs:
+  main:
+  - name: List the content of directories
+    exec:
+    - ls ./some_directory
+    - ls ./some_other_directory
+    - ls ./yet_another_directory
 
-- name: Create a sample file
-  exec:
-  - echo 'hello world' > sample_file
+  - name: Create a sample file
+    exec:
+    - echo 'hello world' > sample_file
 
-- name: Curl IP address
-  exec:
-  - curl ifconfig.me
+  - name: Curl IP address
+    exec:
+    - curl ifconfig.me
 ```
 
-Let's consider now that the above pipeline was called `example-1.yaml` and we wanted all of its steps to be part of another pipeline called `example-2.yaml`, we could call the pipeline as shown below.
-
+A named step can also have `ext` entries as shown below
 ```yaml
 name: Example pipeline for calling another pipeline
 runs_on: machine
-version: 1
+version: 2
 
-steps:
-- name: Call another pipeline and list a directory
-  exec:
-  - ext: example-1.yaml
-  - ls ./some_directory
+jobs:
+  main
+  - name: Call another pipeline and list a directory
+    exec:
+    - ext: example-1.yaml
+    - ls ./some_directory
 ```
 
 You can use the `working_dir` option to change the target directory for a specific step as show below
@@ -363,17 +384,22 @@ You can use the `working_dir` option to change the target directory for a specif
 ```yaml
 name: Example pipeline
 runs_on: ubuntu
-version: 1
+version: 2
 
-steps:
-- name: First step
-  working_dir: /some/working/directory
-  exec:
-  - ls ./subdirectory
-  - rm ./subdirectory/file
+jobs:
+  main:
+  - name: First step
+    working_dir: /some/working/directory
+    exec:
+    - ls ./subdirectory
+    - rm ./subdirectory/file
 
-- name: Second step
-  working_dir: /another/working/directory
-  exec:
-  - ls ./some-other-dir/
+  - name: Second step
+    working_dir: /another/working/directory
+    exec:
+    - ls ./some-other-dir/
 ```
+
+Remember that a named step can be used from an artifacts section to transfer data from or to a container.
+
+> Note: The jobs section support expressions so a variable, an environment variable or a built in constant can be used in all forms of a step and it's fields.
