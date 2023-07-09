@@ -1,2 +1,2 @@
 # Server mode
-Bld can run in a server mode listening to requests on running, listing, pushing, pulling and more actions from other bld clients. This section of the book presents how a server is configured and run.
+Bld can run in server mode in order to run, push, pull, list pipelines and more. This section of the book goes into more detail on some of features of a server.

@@ -1,62 +1,42 @@
 # Authorization
 
-Server mode does not have it's own authentication method but it uses external authentication services. The only current method is using an existing oauth2 service (currently tested only with GitHub's OAuth apps), with an example below.
+Server mode does not have it's own authorization method but it uses external services. The only current method is using an existing oidc provider with an example below.
 
-## Configuration of client to login using github
-The below example assumes that a github oauth2 app has been setup.
+## Configuration of server to validate user using google's oidc
+The below example assumes that google authorization has been setup.
+```yaml
+local:
+  server:
+    host: localhost
+    port: 6080
+    auth:
+      method: oidc
+      issuer_url: https://accounts.google.com
+      redirect_url: http://localhost:6080/auth/redirect
+      client_id: __the client id__
+      client_secret: __the client secret__
+      scopes: ["openid", "profile", "email"]
+      user_property: name
+  docker_url: tcp://127.0.0.1:2376
+```
+
+> Note: The `user_property` field will be used as the identification name for the user for various logs in the server such as run history etc. The only available values are name or email and these are retrieved from the user info url discovered from the oidc provider.
+
+## Configuration of a server from a client's config.yaml
+This will send a request to the provided validation url in order to fetch the user info.
 ```yaml
 local:
   docker_url: tcp://127.0.0.1:2376
 remote:
-  - server: local_srv
-    host: 127.0.0.1
-    port: 6080
-    auth:
-      method: oauth2
-      auth_url: https://github.com/login/oauth/authorize
-      token_url: https://github.com/login/oauth/access_token
-      client_id: your_oauth2_app_client_id
-      client_secret: your_oauth2_app_client_secret
-      scopes: ["public_repo", "user:email"]
-  - server: local_srv_2
-    host: 127.0.0.1
-    port: 6090
-    same_auth_as: local_srv
-```
-
-## Configuration of server to validate user using github
-This will send a request to the provided validation url in order to fetch the user info.
-```yaml
-local:
-    server:
-      host: 127.0.0.1
-      port: 6080
-      auth:
-        method: oauth2
-        validation_url: https://api.github.com/user
-    logs: .bld/logs
-    db: .bld/db
-    docker_url: tcp://127.0.0.1:2376
+- server: local_server
+  host: localhost
+  port: 6080
 ```
 
 ## Login process
+Use the `login` subcommand from the client this will connect to the server using a websocket that in turn will start the login operation.
 ```bash
-# Use the login command to generate a url that will provide you with a code and state
-# tokens used for the auth process
-$ bld login
-
-# Or use -s to specify the server name
-$ bld login -s local_srv
-
-Open the printed url in a browser in order to login with the specified oauth2 provider.
-
-https://github.com/login/oauth/authorize?response_type=code&client_id=your_oauth2_client_id&state=some_state_token&code_challenge=some_generated_code_challenge&code_challenge_method=the_code_challenge_method&redirect_uri=http%3A%2F%2F127.0.0.1%3A6080%2FauthRedirect&scope=public_repo+user%3Aemail
-
-After logging in input both the provided code and state here.
-code:
-
-state:
-
-# At this point by navigating to the generated url you will be able to get the code and state. Copy it to your terminal and a new
-# token will be created under .bld/oauth2 directory on a file with the target server as name.
+$ bld login -s local_server
 ```
+
+Once the login process starts, a url will be sent to the client and be opened automatically in a browser instance that will point to google's login page (If opening the brower fails, the url will be printed to stdout for the user to navigate m. Once the user is authenticated, the server will receive the tokens send them to the client throught the open web socket and then the login process will finish.

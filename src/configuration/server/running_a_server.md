@@ -9,7 +9,7 @@ To initialize a .bld directory with a `config.yaml` that has some default values
 Once the project is initialized, you can use the `server` sub-command to start bld in server mode.
 ```bash
 $ bld server
-$ bld -v server # run with verbosity and see debug logs
+$ bld server --verbose # run with verbosity and see debug logs
 ```
 
 # Running a server pipeline
@@ -31,16 +31,15 @@ A Bld server generates and connect to a sqlite database in order to keep track o
 
 ```bash
 $ bld push -s example_server -p sample.yaml
-$ bld push -p sample.yaml # when the -s option is not defined, the first entry in the remote section is used.
 ```
 
 Once pushed you can use helper sub-commands like
 - `list` to see all registered pipelines
-- `inspect` to see the content of a pipeline on the server
+- `cat` to see the content of a pipeline on the server
 - `pull` to download a pipeline from a server
 - `rm` to remove a pipeline from a server
 
-> For more details on each action, see the Command line interface wiki page.
+> For more details on each action, see the Command line interface page.
 
 Finnaly, to run the pipeline use the `run` sub-command and specify the target server
 
@@ -48,5 +47,5 @@ Finnaly, to run the pipeline use the `run` sub-command and specify the target se
 $ bld run -s example_server -p sample.yaml
 ```
 
-This will start the execution on the server side and keep a web socket connection in order to see in real time the output of the pipeline. Use the `-d` flag to detach from the run. This will send a request to start the run and return immediately.
+This will start the execution on the server side and keep a web socket connection in order to see in real time the output of the pipeline. Use the `--detach` flag to detach from the run. This will send a request to start the run and return immediately.
 
