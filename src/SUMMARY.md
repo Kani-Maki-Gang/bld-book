@@ -28,4 +28,6 @@
     - [Stop](./cli/stop.md)
     - [Supervisor](./cli/supervisor.md)
     - [Worker](./cli/worker.md)
-- [Examples](./examples.md)
+- [Examples](./examples/preface.md)
+    - [.NET pipeline](./examples/dotnet-pipeline.md)
+    - [Nodejs pipeline](./examples/nodejs-pipeline.md)
