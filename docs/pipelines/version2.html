@@ -298,11 +298,12 @@ environment:
   first_directory: /home/user/target_directory
   second_directory: /home/user/another_directory
 
-steps:
-- name: List content of all directories
-  exec:
-  - ls ${{first_directory}}
-  - ls $second_directory
+jobs:
+  main:
+  - name: List content of all directories
+    exec:
+    - ls ${{first_directory}}
+    - ls $second_directory
 </code></pre>
 <p>And specify a different value using the <code>-e</code> or <code>--environment</code> of the <code>run</code> subcommand</p>
 <pre><code class="language-bash">$ bld run -p example.yaml -e first_directory=some_path -e second_directory=some_other_path
@@ -421,10 +422,11 @@ external:
 - pipeline: child.yaml
   server: demo
 
-steps:
-- name: Do execute child
-  exec:
-  - ext: child.yaml
+jobs:
+  main:
+  - name: Do execute child
+    exec:
+    - ext: child.yaml
 </code></pre>
 <p>The <code>external</code> section can be configured to pass both variables and environment variables to the target pipeline. See the below example for configuring them</p>
 <pre><code class="language-yaml">external:
@@ -490,7 +492,7 @@ runs_on: machine
 version: 2
 
 jobs:
-  main
+  main:
   - name: Call another pipeline and list a directory
     exec:
     - ext: example-1.yaml
