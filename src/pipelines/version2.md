@@ -157,11 +157,12 @@ environment:
   first_directory: /home/user/target_directory
   second_directory: /home/user/another_directory
 
-steps:
-- name: List content of all directories
-  exec:
-  - ls ${{first_directory}}
-  - ls $second_directory
+jobs:
+  main:
+  - name: List content of all directories
+    exec:
+    - ls ${{first_directory}}
+    - ls $second_directory
 ```
 
 And specify a different value using the `-e` or `--environment` of the `run` subcommand
@@ -298,10 +299,11 @@ external:
 - pipeline: child.yaml
   server: demo
 
-steps:
-- name: Do execute child
-  exec:
-  - ext: child.yaml
+jobs:
+  main:
+  - name: Do execute child
+    exec:
+    - ext: child.yaml
 ```
 
 The `external` section can be configured to pass both variables and environment variables to the target pipeline. See the below example for configuring them
@@ -380,7 +382,7 @@ runs_on: machine
 version: 2
 
 jobs:
-  main
+  main:
   - name: Call another pipeline and list a directory
     exec:
     - ext: example-1.yaml
