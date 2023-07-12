@@ -220,6 +220,9 @@ ability mode.</p>
 <li>
 <p><strong>db</strong>: A path to a directory where the database file for the server will be created.</p>
 </li>
+<li>
+<p><strong>editor</strong>: The name or path to your editor of choice for editing a pipeline through the bld cli.</p>
+</li>
 </ul>
 <h1 id="remote-configuration"><a class="header" href="#remote-configuration">Remote configuration</a></h1>
 <p>The <code>remote</code> section of the config file is an array of servers that can be targeted. The available options are below.</p>
@@ -257,6 +260,7 @@ ability mode.</p>
   logs: .bld/logs
   db: .bld/db
   docker-url: tcp://127.0.0.1:2376
+  editor: vim
 
 remote:
 - server: local_1

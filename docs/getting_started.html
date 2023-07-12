@@ -171,7 +171,6 @@
 </p>
 <h1 id="what-is-bld"><a class="header" href="#what-is-bld">What is Bld</a></h1>
 <p>Bld is a CI/CD tool that targets to build pipelines both in a local environment and in a server.</p>
-<p>A couple of years back when setting up a home lab, I had the problem with all the CI/CD projects being either cloud only or a local deployment required to run a server. So the inception for the tool was to be able to run pipelines locally the same way they would run on a server. Once that was done, a server mode was added in order to dispatch builds on other machines.</p>
 <h1 id="building"><a class="header" href="#building">Building</a></h1>
 <p>Bld is built using the Rust programming language so you will need a <a href="https://www.rust-lang.org/tools/install">Rust installation</a> in order to compile it.</p>
 <h3 id="external-dependencies"><a class="header" href="#external-dependencies">External dependencies</a></h3>
@@ -196,13 +195,19 @@ $ ./target/release/bld --version
 <h3 id="musl-builds"><a class="header" href="#musl-builds">Musl builds</a></h3>
 <p>Since there are multiple dependencies deployment of bld can be difficult, so the project supports targeting musl for static linking. If you have an existing bld binary locally built/installed then follow the below instructions. This steps require a docker installation.</p>
 <pre><code class="language-bash">$ bld run -p build-musl.yaml
-$ ls dist/bld
+$ ls dist
+</code></pre>
+<p>Or you can use cargo to built bld for your system and then run the pipelines for the musl build</p>
+<pre><code class="language-bash">$ cargo run -- run -p build-musl.yaml
+$ ls dist
 </code></pre>
 <p>With the above a new container will be built with all the necessary dependencies for building the project and the bld pipeline will clone the repository, build the binary and the copy it in the musl/dist directory.</p>
 <p>If a bld binary is not available, you will have to start a container with the bld-musl-builder and do the steps manually.</p>
 <blockquote>
 <p>The project currently targets only Linux. It has not been tested on Windows or Macos.</p>
 </blockquote>
+<h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<p>For a prebuilt version of bld go to the github <a href="https://github.com/Kani-Maki-Gang/bld/releases">releases</a> page and download the latest version.</p>
 <h1 id="creating-a-project"><a class="header" href="#creating-a-project">Creating a project</a></h1>
 <p>If you have followed the above Building section and have a Bld binary available, you can execute the below commands to initialize a Bld directory.</p>
 <pre><code class="language-bash">$ bld init
@@ -236,6 +241,81 @@ jobs:
 <pre><code class="language-bash">$ bld run -p sample/build.yaml
 $ bld run -p sample/deploy.yaml
 </code></pre>
+<h1 id="quick-pipeline-example"><a class="header" href="#quick-pipeline-example">Quick pipeline example</a></h1>
+<p>If you want a quick example of how a more involed pipeline would look, lets take the below example that tries to build a .net project and also run static analysis that will be sent to a sonar qube instance.</p>
+<p>This is the example pipeline that runs the scanner called <code>example-project/scanner.yaml</code></p>
+<pre><code class="language-yaml">name: Example .net project sonar scanner pipeline
+version: 2
+runs_on:
+  dockerfile: /path/to/custom-dockerfile-for-scanner
+  tag: latest
+  name: scanner
+
+variables:
+  branch: master
+  key: ExampleProject
+  url: http://some-url-for-sonar-qube
+  login: some_login_token
+
+jobs:
+  main:
+  - git clone ${{branch}} https://some-url-for-the-repository
+  - working_dir: /example-project/src
+    exec:
+    - dotnet sonarscanner begin /k:&quot;${{key}}&quot; /d:sonar.host.url=${{url}} /d:sonar.login=&quot;${{login}}&quot;
+    - dotnet build
+    - dotnet sonarscanner end /d:sonar.login=&quot;${{login}}&quot;
+</code></pre>
+<p>This is the example pipeline that builds the release version of the project called <code>example-project/build.yaml</code></p>
+<pre><code class="language-yaml">name: Example project build pipeline
+version: 2
+runs_on:
+  image: mcr.microsoft.com/dotnet/sdk:6.0-focal
+  pull: true
+
+variables:
+  branch: master
+  config: release
+
+artifacts:
+- method: get
+  from: /example-project/src/ExampleProject/bin/${{config}}/net6.0/linux-x64
+  to: /some/local/path/example-project/${{bld_run_id}}
+  after: main
+
+jobs:
+  main:
+  - git clone -b ${{branch}} https://some-url-for-the-repository
+  - cd /example-project/src/ExampleProject &amp;&amp; dotnet build -c ${{config}}
+</code></pre>
+<p>This is the example pipeline called <code>example-project/deploy.yaml</code> that runs on the host machine that initiates both pipelines in parallel and also makes a simple deployment of the release build.</p>
+<pre><code class="language-yaml">name: Example project deployment pipeline
+version: 2
+runs_on: machine
+
+variables:
+  branch: master
+
+external:
+- pipeline: example-project/sonar.yaml
+  variables:
+    branch: ${{branch}}
+
+- pipeline: example-project/build.yaml
+  variables:
+    branch: ${{branch}}
+
+jobs:
+  scanner:
+  - ext: example-project/scanner.yaml
+
+  build_and_deploy:
+  - ext: example-project/build.yaml
+  - scp -r /some/local/path/example-project/${{bld_run_id}} user@some-ip:/some/path/to/the/server
+</code></pre>
+<blockquote>
+<p>In the above the scanner pipeline runs parallel to the build and deploy since they are set in 2 different jobs. If everything should be run sequentially then the call to the scanner pipeline could be added to the same job as the other steps.</p>
+</blockquote>
 <h1 id="graceful-shutdown"><a class="header" href="#graceful-shutdown">Graceful shutdown</a></h1>
 <p>Since each run could create and run container as well as issue remote runs to bld servers, the cli handles the SIGINT and SIGTERM signals in order to properly cleanup all of the external components. To be noted that the stop command which stops a pipeline running on a server, can be used for a graceful early shutdown of a pipeline.</p>
 
