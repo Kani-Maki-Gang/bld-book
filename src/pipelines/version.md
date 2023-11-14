@@ -21,3 +21,4 @@ The current available versions and features are listed below.
 | Support for variables | <span style="color:lightgreen">Yes</span> | <span style="color:lightgreen">Yes</span> |
 | Support for environment variables | <span style="color:lightgreen">Yes</span> | <span style="color:lightgreen">Yes</span> |
 | Call child pipelines with the ability to provide variables and environment variables | <span style="color:lightgreen">Yes</span> | <span style="color:lightgreen">Yes</span> |
+| Prevent disposal of platform at the end of a run | <span style="color:lightgreen">Yes</span> | <span style="color:lightgreen">Yes</span> |
