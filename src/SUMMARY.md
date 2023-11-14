@@ -5,6 +5,7 @@
     - [Version 2](./pipelines/version2.md)
     - [Version 1](./pipelines/version1.md)
     - [Version](./pipelines/version.md)
+    - [Runs on](./pipelines/runs_on.md)
 - [Configuration](./configuration/preface.md)
     - [Server mode](./server/preface.md)
         - [Running a server](./configuration/server/running_a_server.md)
