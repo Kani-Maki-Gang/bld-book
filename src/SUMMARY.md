@@ -10,6 +10,7 @@
     - [Variables](./pipelines/variables.md)
     - [Envrironment](./pipelines/environment.md)
     - [Keywords](./pipelines/keywords.md)
+    - [Artifacts](./pipelines/artifacts.md)
 - [Configuration](./configuration/preface.md)
     - [Server mode](./server/preface.md)
         - [Running a server](./configuration/server/running_a_server.md)
