@@ -14,6 +14,7 @@
     - [Artifacts](./pipelines/artifacts.md)
     - [External](./pipelines/external.md)
     - [Jobs and steps](./pipelines/jobs_and_steps.md)
+    - [Validation](./pipelines/validation.md)
 - [Server](./server/preface.md)
     - [Running a server](./server/running_a_server.md)
     - [Database](./server/database.md)
