@@ -34,6 +34,8 @@ ability mode.
 
 * __editor__: The name or path to your editor of choice for editing a pipeline through the bld cli.
 
+* __ssh__: The ssh global configuration that pipelines can use to establish an ssh connection.
+
 # Remote configuration
 The `remote` section of the config file is an array of servers that can be targeted. The available options are below.
 * __server__: The name used to target this entry.
@@ -72,6 +74,25 @@ local:
      workers: 50
   docker-url: tcp://127.0.0.1:2376
   editor: vim
+  ssh:
+     test_server_1:
+         host: 192.168.122.3
+         user: test_user
+         userauth:
+             type: keys
+             public_key: /path/to/public_key
+             private_key: /path/to/private_key
+     test_server_2:
+         host: 192.168.122.4
+         user: test_user_2
+         userauth:
+             type: password
+             password: some_password
+     test_server_3:
+         host: 192.168.122.5
+         user: test_user_3
+         userauth:
+             type: agent
 
 remote:
 - server: local_1
