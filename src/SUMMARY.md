@@ -1,7 +1,7 @@
 # Summary
 
 - [Getting started](./getting_started.md)
-- [Configuration](./configuration/preface.md)
+- [Configuration](./configuration.md)
 - [Pipelines](./pipelines/preface.md)
     - [Version](./pipelines/version.md)
     - [Name](./pipelines/name.md)
@@ -15,9 +15,11 @@
     - [External](./pipelines/external.md)
     - [Jobs and steps](./pipelines/jobs_and_steps.md)
 - [Server](./server/preface.md)
-    - [Running a server](./configuration/server/running_a_server.md)
-    - [Authorization](./configuration/server/authorization.md)
-    - [TLS](./configuration/server/tls.md)
+    - [Running a server](./server/running_a_server.md)
+    - [Database](./server/database.md)
+    - [Authorization](./server/authorization.md)
+    - [TLS](./server/tls.md)
+    - [SSH](./server/ssh.md)
 - [Command line interface](./cli/preface.md)
     - [Cat](./cli/cat.md)
     - [Check](./cli/check.md)

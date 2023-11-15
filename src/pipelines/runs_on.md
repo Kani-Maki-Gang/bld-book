@@ -68,7 +68,7 @@ runs_on:
 
 > Supported in pipeline versions: `version 2`
 
-The ssh platform exists in order to make the execution of multiple commands over an ssh connection easier. A use could always directly use the `ssh` binary in a command that is executed in a diffferent platform, but doing so could be tedious.
+The ssh platform exists in order to make the execution of multiple commands over an ssh connection easier. A user could always directly use the `ssh` binary in a command that is executed in a diffferent platform.
 
 An example of using this platform is shown below:
 ```yaml
@@ -82,7 +82,13 @@ runs_on:
 
 ```
 
-One this to note here is that this platform always expects the `host`, `user` and `userauth` fields with the `port` field being optional with the default being `port: 22` if not provided. Additionally the `userauth` field has 3 types of authentication that can be defined.
+Additionally you can define a global configuration for ssh connections in the `.bld/config.yaml` file and use the name of the configuration in the `runs_on` field as show below. See the `Server > SSH` section for more information on the global configuration.
+```yaml
+runs_on:
+    ssh_config: my_global_ssh_config_key
+```
+
+Note here that this platform always expects the `host`, `user` and `userauth` fields with the `port` field being optional having a default value of `port: 22` if not provided. Additionally the `userauth` field has 3 types of authentication that can be defined.
 
 ### Password user authentication
 
