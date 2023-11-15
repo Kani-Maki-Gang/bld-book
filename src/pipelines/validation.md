@@ -21,6 +21,7 @@ The validation rules differ between pipeline versions since the syntax could cha
 | `runs_on->name` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `runs_on->tag` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `runs_on->dockerfile` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
+| `runs_on->dockerfile` | Checks if the dockerfile path is valid when no variables or keywords are used. |
 | `runs_on->image` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `runs_on->ssh_config` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `runs_on->ssh_config` | If no variables or keywords found then the name is checked in the `.bld/config.yaml` file in order to find if it has been defined. |
@@ -41,7 +42,7 @@ The validation rules differ between pipeline versions since the syntax could cha
 | `external->pipeline` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `external->pipeline` | Checks if the pipeline file path exists when no variables or keywords are used. |
 | `external->server` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
-| `external->server` | Checks if the server name used is found in the `.bld/config.yaml` file when no variables or keywords are used. |
+| `external->server` | Checks if the server name used is found in the `.bld/config.yaml` file when no variables or keywords are used when no variables or keywords are used. |
 | `external->variables` | Checks all defined variables if the name is a built in keyword. |
 | `external->variables` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `external->environment` | Checks all defined variables if the name is a built in keyword. |
@@ -49,7 +50,7 @@ The validation rules differ between pipeline versions since the syntax could cha
 | `artifacts->from` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `artifacts->to` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `artifacts->after` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
-| `artifacts->after` | Checks if the step name in the after key is found in the pipeline's jobs or steps. |
+| `artifacts->after` | Checks if the step name in the after key is found in the pipeline's jobs or steps when no variables or keywords are used. |
 | `steps->exec->ext` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
 | `steps->exec->ext` | Checks if the external key is found either as a local pipeline or a defined external declaration inside the pipeline itself. |
 | `steps->exec->working_dir` | Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline. |
