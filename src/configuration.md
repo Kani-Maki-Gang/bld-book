@@ -21,6 +21,8 @@ ability mode.
     * __client_secret__: The client secret for the bld server.
     * __scopes__: An array of scopes provided when logging in.
     * __user_property__: The property that a user will be associated with. Accepts the values name or email.
+  * __logs__: A path to a directory where the logs for each server run will be stored.
+  * __db__: The database connection url for `postgres`, `mysql` or `sqlite`.
 
 * __supervisor__: The start of the supervisor section
   * __host__: The host that the supervisor will be exposed to.
@@ -30,9 +32,9 @@ ability mode.
     * __private_key__: The path to the private key of the above certificate.
   * __workers__: A number that indicates how many worker processes can the supervisor spawn. This will be the maximum number of active pipeline runs on a server, with all other being queued.
 
-* __logs__: A path to a directory where the logs for each server run will be stored.
-* __db__: A path to a directory where the database file for the server will be created.
 * __editor__: The name or path to your editor of choice for editing a pipeline through the bld cli.
+
+* __ssh__: The ssh global configuration that pipelines can use to establish an ssh connection.
 
 # Remote configuration
 The `remote` section of the config file is an array of servers that can be targeted. The available options are below.
@@ -61,6 +63,8 @@ local:
         scopes: ["scope1", "scope2"]
         user_property: email
      pipelines: .bld/server_pipelines
+     logs: .bld/logs
+     db: sqlite:///path/to/project/.bld/db/bld-server.db
   supervisor:
      host: localhost
      port: 7080
@@ -68,10 +72,27 @@ local:
         cert_chain: path/to/supervisor_certificate.crt
         private_key: path/to/supervisor_private.key
      workers: 50
-  logs: .bld/logs
-  db: .bld/db
   docker-url: tcp://127.0.0.1:2376
   editor: vim
+  ssh:
+     test_server_1:
+         host: 192.168.122.3
+         user: test_user
+         userauth:
+             type: keys
+             public_key: /path/to/public_key
+             private_key: /path/to/private_key
+     test_server_2:
+         host: 192.168.122.4
+         user: test_user_2
+         userauth:
+             type: password
+             password: some_password
+     test_server_3:
+         host: 192.168.122.5
+         user: test_user_3
+         userauth:
+             type: agent
 
 remote:
 - server: local_1
