@@ -21,6 +21,7 @@
     - [Authorization](./server/authorization.md)
     - [TLS](./server/tls.md)
     - [SSH](./server/ssh.md)
+- [Github action](./github-action.md)
 - [Command line interface](./cli/preface.md)
     - [Cat](./cli/cat.md)
     - [Check](./cli/check.md)
