@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Bld book</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,7 +32,7 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -62,29 +62,34 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="pipelines/preface.html"><strong aria-hidden="true">2.</strong> Pipelines</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="pipelines/version2.html"><strong aria-hidden="true">2.1.</strong> Version 2</a></li><li class="chapter-item expanded "><a href="pipelines/version1.html"><strong aria-hidden="true">2.2.</strong> Version 1</a></li></ol></li><li class="chapter-item expanded "><a href="configuration/preface.html"><strong aria-hidden="true">3.</strong> Configuration</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="server/preface.html"><strong aria-hidden="true">3.1.</strong> Server mode</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="configuration/server/running_a_server.html"><strong aria-hidden="true">3.1.1.</strong> Running a server</a></li><li class="chapter-item expanded "><a href="configuration/server/authorization.html"><strong aria-hidden="true">3.1.2.</strong> Authorization</a></li><li class="chapter-item expanded "><a href="configuration/server/tls.html"><strong aria-hidden="true">3.1.3.</strong> TLS</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="cli/preface.html"><strong aria-hidden="true">4.</strong> Command line interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/cat.html"><strong aria-hidden="true">4.1.</strong> Cat</a></li><li class="chapter-item expanded "><a href="cli/check.html"><strong aria-hidden="true">4.2.</strong> Check</a></li><li class="chapter-item expanded "><a href="cli/config.html"><strong aria-hidden="true">4.3.</strong> Config</a></li><li class="chapter-item expanded "><a href="cli/cron.html"><strong aria-hidden="true">4.4.</strong> Cron</a></li><li class="chapter-item expanded "><a href="cli/help.html"><strong aria-hidden="true">4.5.</strong> Help</a></li><li class="chapter-item expanded "><a href="cli/hist.html"><strong aria-hidden="true">4.6.</strong> Hist</a></li><li class="chapter-item expanded "><a href="cli/init.html"><strong aria-hidden="true">4.7.</strong> Init</a></li><li class="chapter-item expanded "><a href="cli/login.html"><strong aria-hidden="true">4.8.</strong> Login</a></li><li class="chapter-item expanded "><a href="cli/ls.html"><strong aria-hidden="true">4.9.</strong> Ls</a></li><li class="chapter-item expanded "><a href="cli/monit.html"><strong aria-hidden="true">4.10.</strong> Monit</a></li><li class="chapter-item expanded "><a href="cli/pull.html"><strong aria-hidden="true">4.11.</strong> Pull</a></li><li class="chapter-item expanded "><a href="cli/push.html"><strong aria-hidden="true">4.12.</strong> Push</a></li><li class="chapter-item expanded "><a href="cli/rm.html"><strong aria-hidden="true">4.13.</strong> Rm</a></li><li class="chapter-item expanded "><a href="cli/run.html"><strong aria-hidden="true">4.14.</strong> Run</a></li><li class="chapter-item expanded "><a href="cli/server.html"><strong aria-hidden="true">4.15.</strong> Server</a></li><li class="chapter-item expanded "><a href="cli/stop.html"><strong aria-hidden="true">4.16.</strong> Stop</a></li><li class="chapter-item expanded "><a href="cli/supervisor.html"><strong aria-hidden="true">4.17.</strong> Supervisor</a></li><li class="chapter-item expanded "><a href="cli/worker.html"><strong aria-hidden="true">4.18.</strong> Worker</a></li></ol></li><li class="chapter-item expanded "><a href="examples/preface.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/dotnet-pipeline.html"><strong aria-hidden="true">5.1.</strong> .NET pipeline</a></li><li class="chapter-item expanded "><a href="examples/nodejs-pipeline.html"><strong aria-hidden="true">5.2.</strong> Nodejs pipeline</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="configuration.html"><strong aria-hidden="true">2.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="pipelines/preface.html"><strong aria-hidden="true">3.</strong> Pipelines</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="pipelines/version.html"><strong aria-hidden="true">3.1.</strong> Version</a></li><li class="chapter-item expanded "><a href="pipelines/name.html"><strong aria-hidden="true">3.2.</strong> Name</a></li><li class="chapter-item expanded "><a href="pipelines/runs_on.html"><strong aria-hidden="true">3.3.</strong> Runs on</a></li><li class="chapter-item expanded "><a href="pipelines/cron.html"><strong aria-hidden="true">3.4.</strong> Cron</a></li><li class="chapter-item expanded "><a href="pipelines/dispose.html"><strong aria-hidden="true">3.5.</strong> Dispose</a></li><li class="chapter-item expanded "><a href="pipelines/variables.html"><strong aria-hidden="true">3.6.</strong> Variables</a></li><li class="chapter-item expanded "><a href="pipelines/environment.html"><strong aria-hidden="true">3.7.</strong> Envrironment</a></li><li class="chapter-item expanded "><a href="pipelines/keywords.html"><strong aria-hidden="true">3.8.</strong> Keywords</a></li><li class="chapter-item expanded "><a href="pipelines/artifacts.html"><strong aria-hidden="true">3.9.</strong> Artifacts</a></li><li class="chapter-item expanded "><a href="pipelines/external.html"><strong aria-hidden="true">3.10.</strong> External</a></li><li class="chapter-item expanded "><a href="pipelines/jobs_and_steps.html"><strong aria-hidden="true">3.11.</strong> Jobs and steps</a></li><li class="chapter-item expanded "><a href="pipelines/validation.html"><strong aria-hidden="true">3.12.</strong> Validation</a></li></ol></li><li class="chapter-item expanded "><a href="server/preface.html"><strong aria-hidden="true">4.</strong> Server</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="server/running_a_server.html"><strong aria-hidden="true">4.1.</strong> Running a server</a></li><li class="chapter-item expanded "><a href="server/database.html"><strong aria-hidden="true">4.2.</strong> Database</a></li><li class="chapter-item expanded "><a href="server/authorization.html"><strong aria-hidden="true">4.3.</strong> Authorization</a></li><li class="chapter-item expanded "><a href="server/tls.html"><strong aria-hidden="true">4.4.</strong> TLS</a></li><li class="chapter-item expanded "><a href="server/ssh.html"><strong aria-hidden="true">4.5.</strong> SSH</a></li></ol></li><li class="chapter-item expanded "><a href="github-action.html"><strong aria-hidden="true">5.</strong> Github action</a></li><li class="chapter-item expanded "><a href="cli/preface.html"><strong aria-hidden="true">6.</strong> Command line interface</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/cat.html"><strong aria-hidden="true">6.1.</strong> Cat</a></li><li class="chapter-item expanded "><a href="cli/check.html"><strong aria-hidden="true">6.2.</strong> Check</a></li><li class="chapter-item expanded "><a href="cli/config.html"><strong aria-hidden="true">6.3.</strong> Config</a></li><li class="chapter-item expanded "><a href="cli/cp.html"><strong aria-hidden="true">6.4.</strong> Cp</a></li><li class="chapter-item expanded "><a href="cli/cron.html"><strong aria-hidden="true">6.5.</strong> Cron</a></li><li class="chapter-item expanded "><a href="cli/help.html"><strong aria-hidden="true">6.6.</strong> Help</a></li><li class="chapter-item expanded "><a href="cli/hist.html"><strong aria-hidden="true">6.7.</strong> Hist</a></li><li class="chapter-item expanded "><a href="cli/init.html"><strong aria-hidden="true">6.8.</strong> Init</a></li><li class="chapter-item expanded "><a href="cli/login.html"><strong aria-hidden="true">6.9.</strong> Login</a></li><li class="chapter-item expanded "><a href="cli/ls.html"><strong aria-hidden="true">6.10.</strong> Ls</a></li><li class="chapter-item expanded "><a href="cli/monit.html"><strong aria-hidden="true">6.11.</strong> Monit</a></li><li class="chapter-item expanded "><a href="cli/mv.html"><strong aria-hidden="true">6.12.</strong> Mv</a></li><li class="chapter-item expanded "><a href="cli/pull.html"><strong aria-hidden="true">6.13.</strong> Pull</a></li><li class="chapter-item expanded "><a href="cli/push.html"><strong aria-hidden="true">6.14.</strong> Push</a></li><li class="chapter-item expanded "><a href="cli/rm.html"><strong aria-hidden="true">6.15.</strong> Rm</a></li><li class="chapter-item expanded "><a href="cli/run.html"><strong aria-hidden="true">6.16.</strong> Run</a></li><li class="chapter-item expanded "><a href="cli/server.html"><strong aria-hidden="true">6.17.</strong> Server</a></li><li class="chapter-item expanded "><a href="cli/stop.html"><strong aria-hidden="true">6.18.</strong> Stop</a></li><li class="chapter-item expanded "><a href="cli/supervisor.html"><strong aria-hidden="true">6.19.</strong> Supervisor</a></li><li class="chapter-item expanded "><a href="cli/worker.html"><strong aria-hidden="true">6.20.</strong> Worker</a></li></ol></li><li class="chapter-item expanded "><a href="examples/preface.html"><strong aria-hidden="true">7.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/dotnet-pipeline.html"><strong aria-hidden="true">7.1.</strong> .NET pipeline</a></li><li class="chapter-item expanded "><a href="examples/nodejs-pipeline.html"><strong aria-hidden="true">7.2.</strong> Nodejs pipeline</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -117,9 +122,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -319,99 +324,317 @@ jobs:
 </blockquote>
 <h1 id="graceful-shutdown"><a class="header" href="#graceful-shutdown">Graceful shutdown</a></h1>
 <p>Since each run could create and run container as well as issue remote runs to bld servers, the cli handles the SIGINT and SIGTERM signals in order to properly cleanup all of the external components. To be noted that the stop command which stops a pipeline running on a server, can be used for a graceful early shutdown of a pipeline.</p>
+<h1 id="gihub-action"><a class="header" href="#gihub-action">Gihub action</a></h1>
+<p>Bld has an alpha version of a github action called <a href="https://github.com/marketplace/actions/bld-action">bld-action</a> and you can access the repository <a href="https://github.com/Kani-Maki-Gang/bld-github-action">here</a>.</p>
+<p>The action will look inside a repository to find the <code>.bld</code> directory in order to run the bld binary. An example that runs a pipeline with one variable is shown below:</p>
+<pre><code class="language-yaml">name: Demo workflow
+
+on:
+  push:
+    branches: [&quot;main&quot;]
+
+jobs:
+  build_musl:
+    runs-on: ubuntu-latest
+    name: Run demo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run pipeline
+        uses: Kani-Maki-Gang/bld-github-action@v0.2.1-alpha
+        with:
+          pipeline: 'demo_pipeline.yaml'
+          variables: |-
+            branch=main
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-configure-bld"><a class="header" href="#how-to-configure-bld">How to configure bld</a></h1>
+<p>You can edit the <code>config.yaml</code> file inside a <code>.bld</code> directory in order to configure both local options and add new target bld servers.</p>
+<h1 id="local-configuration"><a class="header" href="#local-configuration">Local configuration</a></h1>
+<p>The <code>local</code> section of the configuration has the below options available
+ability mode.</p>
+<ul>
+<li>
+<p><strong>docker_url</strong>: The url with which a connection will be established to the docker engine API.</p>
+</li>
+<li>
+<p><strong>server</strong>: The start of the server section with the below options</p>
+<ul>
+<li><strong>host</strong>: The host that the server will be exposed to.</li>
+<li><strong>port</strong>: The port that the server will be exposed to.</li>
+<li><strong>tls</strong>: The start of the tls section with the below options
+<ul>
+<li><strong>cert_chain</strong>: The path to a certificate file.</li>
+<li><strong>private_key</strong>: The path to the private key for the above certificate.</li>
+</ul>
+</li>
+<li><strong>pipelines</strong>: A path to a directory in which the server will store registered pipelines.</li>
+<li><strong>auth</strong>: The authentication section for the server.
+<ul>
+<li><strong>method</strong>: A text option that for the current release only accepts the value oidc.</li>
+<li><strong>issuer_url</strong>: The issuer url for the authorization provider.</li>
+<li><strong>redirect_url</strong>: The redirect url of the bld server.</li>
+<li><strong>client_id</strong>: The client id configured in the oidc provider for the bld server.</li>
+<li><strong>client_secret</strong>: The client secret for the bld server.</li>
+<li><strong>scopes</strong>: An array of scopes provided when logging in.</li>
+<li><strong>user_property</strong>: The property that a user will be associated with. Accepts the values name or email.</li>
+</ul>
+</li>
+<li><strong>logs</strong>: A path to a directory where the logs for each server run will be stored.</li>
+<li><strong>db</strong>: The database connection url for <code>postgres</code>, <code>mysql</code> or <code>sqlite</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>supervisor</strong>: The start of the supervisor section</p>
+<ul>
+<li><strong>host</strong>: The host that the supervisor will be exposed to.</li>
+<li><strong>port</strong>: The port that the supervisor will be exposed to.</li>
+<li><strong>tls</strong>: The start of the tls section with the below options
+<ul>
+<li><strong>cert_chain</strong>: The path to a certificate file.</li>
+<li><strong>private_key</strong>: The path to the private key of the above certificate.</li>
+</ul>
+</li>
+<li><strong>workers</strong>: A number that indicates how many worker processes can the supervisor spawn. This will be the maximum number of active pipeline runs on a server, with all other being queued.</li>
+</ul>
+</li>
+<li>
+<p><strong>editor</strong>: The name or path to your editor of choice for editing a pipeline through the bld cli.</p>
+</li>
+<li>
+<p><strong>ssh</strong>: The ssh global configuration that pipelines can use to establish an ssh connection.</p>
+</li>
+</ul>
+<h1 id="remote-configuration"><a class="header" href="#remote-configuration">Remote configuration</a></h1>
+<p>The <code>remote</code> section of the config file is an array of servers that can be targeted. The available options are below.</p>
+<ul>
+<li><strong>server</strong>: The name used to target this entry.</li>
+<li><strong>host</strong>: The host address of the server.</li>
+<li><strong>port</strong>: The port of the server.</li>
+<li><strong>tls</strong>: A boolean indicating to use secure protocols when connecting to the server.</li>
+</ul>
+<h1 id="putting-it-all-together"><a class="header" href="#putting-it-all-together">Putting it all together</a></h1>
+<p>Below is an example configuration with all of the above options</p>
+<pre><code class="language-yaml">local:
+  server:
+     host: localhost
+     port: 6080
+     tls:
+        cert_chain: path/to/server_certificate.crt
+        private_key: path/to/server_private.key
+     auth:
+        method: oidc
+        issuer_url: https://some_issuer_url
+        redirect_url: https://localhost:6080/authRedirect
+        client_id: some_client_id
+        client_secret: some_client_secret
+        scopes: [&quot;scope1&quot;, &quot;scope2&quot;]
+        user_property: email
+     pipelines: .bld/server_pipelines
+     logs: .bld/logs
+     db: sqlite:///path/to/project/.bld/db/bld-server.db
+  supervisor:
+     host: localhost
+     port: 7080
+     tls:
+        cert_chain: path/to/supervisor_certificate.crt
+        private_key: path/to/supervisor_private.key
+     workers: 50
+  docker-url: tcp://127.0.0.1:2376
+  editor: vim
+  ssh:
+     test_server_1:
+         host: 192.168.122.3
+         user: test_user
+         userauth:
+             type: keys
+             public_key: /path/to/public_key
+             private_key: /path/to/private_key
+     test_server_2:
+         host: 192.168.122.4
+         user: test_user_2
+         userauth:
+             type: password
+             password: some_password
+     test_server_3:
+         host: 192.168.122.5
+         user: test_user_3
+         userauth:
+             type: agent
+
+remote:
+- server: local_1
+  host: 127.0.0.1
+  port: 6080
+  tls: true
+- server: local_2
+  host: 127.0.0.1
+  port: 8080
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pipeline-syntax"><a class="header" href="#pipeline-syntax">Pipeline syntax</a></h1>
-<p>Bld pipelines are built with backwards compatibility in mind, meaning that after a bld update existing pipelines will not break even if new functionality is introduced or the pipeline changes alltogether.</p>
+<p>Bld pipelines are built with backwards compatibility in mind, meaning that after a bld update existing pipelines will not break even if new functionality is introduced or the pipeline changes all together.</p>
 <p>This is achived through a version number that is seperate from the release version of bld. When a breaking change is introduced in the pipeline syntax, in order to support new features, a pipeline version bump will happen thus all existing pipelines will execute with the set of features they were designed and will not break. This is done to let the user migrate to a new pipeline syntax at their leasure.</p>
 <p>The current pipeline versions are</p>
 <ul>
-<li><a href="pipelines/./version1.html">Version 1</a></li>
-<li><a href="pipelines/./version2.html">Version 2</a> <code>latest</code></li>
+<li>Version 1</li>
+<li>Version 2 <code>latest</code></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="pipeline-v2-syntax"><a class="header" href="#pipeline-v2-syntax">Pipeline V2 syntax</a></h1>
-<p>This page explains the syntax of the version 2 pipeline files with examples.</p>
-<h1 id="top-level-statements"><a class="header" href="#top-level-statements">Top level statements</a></h1>
-<p>The list of top level sections for a pipeline are:</p>
-<ul>
-<li><strong>version</strong>: The pipeline syntax version. This helps with backwards compatibility and to target this version pipelines it should always be 2.</li>
-<li><strong>name</strong>(optional): A name that will be printed on the execution log</li>
-<li><strong>runs_on</strong>: The platform configuration that can either be <code>machine</code> or a set of options for a docker image.</li>
-<li><strong>cron</strong>(optional): A text value that should represent a schedule of automatic execution for the pipeline that uses the cron syntax.</li>
-<li><strong>dispose</strong>(optional): A boolean value that when set to true will not clean up after a run.
-<ul>
-<li>For machine runs a temporary directory is created under the <code>.bld/tmp/</code> path with a uuid directory for the run.</li>
-<li>For container runs the container itself will not be stopped and removed.</li>
-</ul>
-</li>
-<li><strong>variables</strong>(optional): A set of variables that can be used to dynamically replace sections of various other options in the pipeline file.</li>
-<li><strong>environment</strong>(optional): A set of environment variables that will be set when executing a step command or can dynamically replace sections of various other options in the pipeline file.</li>
-<li><strong>artifacts</strong>(optional): An array that can configure operations for sending or fetching artifacts from a <code>container</code>.</li>
-<li><strong>external</strong>(optional): An array that can configure execution of other pipelines either in the same Bld instance or to a target server.</li>
-<li><strong>jobs</strong>: A set of command steps to execute, pipelines to call or invoke in a server. Jobs are executed in parallel.</li>
-</ul>
-<p>Let's take for example the below pipeline, with the file name example.yaml, that needs to run on the current <code>machine</code> and list all files in a directory</p>
-<pre><code class="language-yaml">name: Example pipeline 1
-runs_on: machine
-working_dir: /home/user/target_directory
-version: 2
-
-jobs:
-  main:
-  - ls /home/user/target_directory
-</code></pre>
-<h1 id="version"><a class="header" href="#version">Version</a></h1>
-<p>The <code>version</code> field is a mandatory field for the pipeline and for this part of the documentation it should always be 2 for the below features to be supported.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="version"><a class="header" href="#version">Version</a></h1>
+<p>The <code>version</code> field is a mandatory field that indicates which specific features are available to a pipeline. A new pipeline version is created when a breaking change must be done in the pipeline yaml structure for a specific feature to be supported. Additionally each version has a dedicated runner which means that a new version of bld will execute the existing pipelines as before.</p>
+<p>An example of defining a version is below.</p>
 <pre><code class="language-yaml">version: 2
 </code></pre>
-<h1 id="name"><a class="header" href="#name">Name</a></h1>
-<p>The <code>name</code> field is optional and simply will print out the defined value at the start of the pipeline's execution.</p>
+<p>Pipeline versions are independent of the bld version, since the pipeline execution or structure might not change at all between releases.</p>
+<p>The current available versions and features are listed below.</p>
+<div class="table-wrapper"><table><thead><tr><th>Feature</th><th>Version 1</th><th>Version 2</th></tr></thead><tbody>
+<tr><td>Execute commands on host machine</td><td><span style="color:lightgreen">Yes</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Execute commands on an existing container image</td><td><span style="color:lightgreen">Yes</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Execute commands on a container image that can be pulled if not found</td><td><span style="color:red">No</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Execute commands on a container image that is built directly through a Dockerfile</td><td><span style="color:red">No</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Execute commands on a server with an ssh connection</td><td><span style="color:red">No</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Run parallel jobs</td><td><span style="color:red">No</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Support for variables</td><td><span style="color:lightgreen">Yes</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Support for environment variables</td><td><span style="color:lightgreen">Yes</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Call child pipelines with the ability to provide variables and environment variables</td><td><span style="color:lightgreen">Yes</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+<tr><td>Prevent disposal of platform at the end of a run</td><td><span style="color:lightgreen">Yes</span></td><td><span style="color:lightgreen">Yes</span></td></tr>
+</tbody></table>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="name"><a class="header" href="#name">Name</a></h1>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
+<p>The <code>name</code> field is optional and simply will print out the defined value at the start of the pipeline's execution. An example usage is below:</p>
 <pre><code class="language-yaml">name: An example pipeline name
 </code></pre>
 <blockquote>
-<p>Note: The name field supports expressions so a variable, an environment variable or a built in constant can be used.</p>
+<p>Note: The name field supports expressions so a variable, an environment variable or a keyword can be used.</p>
 </blockquote>
-<h1 id="runs_on"><a class="header" href="#runs_on">Runs_on</a></h1>
-<p>The <code>runs_on</code> field in the pipeline defines the platform of execution. This can either be the host <code>machine</code> or a container and as shown above to invoke a pipeline on the machine you simply specify the value machine.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="runs_on"><a class="header" href="#runs_on">Runs_on</a></h1>
+<p>The <code>runs_on</code> field in the pipeline defines the platform of execution and currently the latest version of the pipeline syntax supports the below:</p>
+<ul>
+<li>machine</li>
+<li>container</li>
+<li>ssh connection</li>
+</ul>
+<h2 id="machine-platform"><a class="header" href="#machine-platform">Machine platform</a></h2>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
+<p>The machine platform indicates that all commands will be executed directly on the host machine. The bld runtime will also create a temporary directory in <code>.bld/tmp</code> path with a unique Uuid as a directory that can be used for the run which will be cleaned up afterwards.</p>
+<p>To use the machine platform simply use the below top level statement.</p>
 <pre><code class="language-yaml">runs_on: machine
 </code></pre>
-<p>For container there are mutliple options that can either simply create a container with an existing image by specifing it by name.</p>
+<h2 id="container-platform"><a class="header" href="#container-platform">Container platform</a></h2>
+<p>The container platform is used so that commands defined in the pipeline are executed inside a docker container using an exec instance. The container platform supports various types of configuration.</p>
+<h3 id="run-commands-on-existing-docker-images"><a class="header" href="#run-commands-on-existing-docker-images">Run commands on existing docker images</a></h3>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
+<p>To run commands on existing docker images. This option simply will try to create a new container at the start of the run based on the name of the provided image, if the image doesn't exist then the container won't be created. The user is responsible for maintaining the docker images in this case. As an example below we define this type of container platform for the latest ubuntu image.</p>
 <pre><code class="language-yaml">runs_on: ubuntu
 </code></pre>
-<p>But it can also be configured to pull the desired image based on its name and it supports the use of a tag.</p>
-<pre><code class="language-yaml">runs_on:
-  image: ubuntu
-  pull: true
-</code></pre>
-<pre><code class="language-yaml">runs_on:
-  image: ubuntu:20.04
-  pull: true
-</code></pre>
-<p>Finally the runs_on field can be configured to build a dockerfile and create the necessary image, and provide it with a name and a tag.</p>
-<pre><code>runs_on:
-  dockerfile: /path/to/dockerfile
-  name: custom-image
-  tag: latest
-</code></pre>
+<h3 id="run-commands-on-existing-or-missing-docker-images"><a class="header" href="#run-commands-on-existing-or-missing-docker-images">Run commands on existing or missing docker images</a></h3>
 <blockquote>
-<p>Note: The runs_on field supports expressions so a variable, an environment variable or a built in constant can be used.</p>
+<p>Supported in pipeline versions: <code>version 2</code></p>
 </blockquote>
-<h1 id="cron"><a class="header" href="#cron">Cron</a></h1>
-<p>The <code>cron</code> field is optional and can configure the execution of a pipeline in a schedule that is defined using the cron syntax. <em>This field is only supported for server runs and doesn't affect local runs</em>.</p>
+<p>This type of the container platform is similar to the previous one but it can define the option to pull the docker image when the run starts. If the pull option is active then the run will look up the image, pull it if neccessary and then start the run on the created container. As an example to define such platform for the ubuntu image you can use the below top level statement.</p>
+<pre><code class="language-yaml">runs_on:
+    image: ubuntu
+    pull: true
+</code></pre>
+<p>To pull a specific image tag you can use the : notation similar to the example below.</p>
+<pre><code class="language-yaml">runs_on:
+    image: ubuntu:20.04
+    pull: true
+</code></pre>
+<h3 id="run-commands-on-images-built-from-a-dockerfile"><a class="header" href="#run-commands-on-images-built-from-a-dockerfile">Run commands on images built from a Dockerfile</a></h3>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 2</code></p>
+</blockquote>
+<p>This type of container platform leverages a Dockerfile to build an image based on specified configuration and then run the provided commands on a new container created with this image. As an example to create such a platform use the below top level statement.</p>
+<pre><code>runs_on:
+    dockerfile: /path/to/dockerfile
+    name: custom-image
+    tag: latest
+</code></pre>
+<h2 id="ssh-platform"><a class="header" href="#ssh-platform">Ssh platform</a></h2>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 2</code></p>
+</blockquote>
+<p>The ssh platform exists in order to make the execution of multiple commands over an ssh connection easier. A user could always directly use the <code>ssh</code> binary in a command that is executed in a diffferent platform.</p>
+<p>An example of using this platform is shown below:</p>
+<pre><code class="language-yaml">runs_on:
+    host: 127.0.0.1
+    port: 22
+    user: some_user
+    userauth:
+        type: password
+        password: the_user_password
+
+</code></pre>
+<p>Additionally you can define a global configuration for ssh connections in the <code>.bld/config.yaml</code> file and use the name of the configuration in the <code>runs_on</code> field as show below. See the <code>Server &gt; SSH</code> section for more information on the global configuration.</p>
+<pre><code class="language-yaml">runs_on:
+    ssh_config: my_global_ssh_config_key
+</code></pre>
+<p>Note here that this platform always expects the <code>host</code>, <code>user</code> and <code>userauth</code> fields with the <code>port</code> field being optional having a default value of <code>port: 22</code> if not provided. Additionally the <code>userauth</code> field has 3 types of authentication that can be defined.</p>
+<h3 id="password-user-authentication"><a class="header" href="#password-user-authentication">Password user authentication</a></h3>
+<p>The password authentication type for the ssh platform uses a password directly that is passed to the ssh connection when that is established. To define such user authentication you can use the below statement:</p>
+<pre><code class="language-yaml">userauth:
+    type: password
+    password: the_user_password
+</code></pre>
+<h3 id="keys-user-authentication"><a class="header" href="#keys-user-authentication">Keys user authentication</a></h3>
+<p>The keys authentication type uses a private and a public key when establishing the ssh connection, and such a configuration can be done using the below statement:</p>
+<pre><code class="language-yaml">userauth:
+    type: keys
+    public_key: /path/to/public_key
+    private_key: /path/to/private_key
+</code></pre>
+<p>The <code>private_key</code> field is mandatory but the <code>public_key</code> is optional.</p>
+<h3 id="agent-user-authentication"><a class="header" href="#agent-user-authentication">Agent user authentication</a></h3>
+<p>This type attemps to perform ssh agent authentication and can be configured using the below statement:</p>
+<pre><code class="language-yaml">userauth:
+    type: agent
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cron"><a class="header" href="#cron">Cron</a></h1>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 2</code></p>
+</blockquote>
+<p>The <code>cron</code> field is optional and can configure the execution of a pipeline in a schedule that is defined using the cron syntax.</p>
+<p>This field is only supported for server runs and doesn't affect local runs. Additionally it will set up a scheduled execution with the default values for variables and environment variables, if a more parameterized scheduled job is required please visit the <code>cron</code> cli subcommand.</p>
 <p>An example use case it would be to execute a pipeline every 10 seconds</p>
 <pre><code class="language-yaml">cron: 10 * * * * * *
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dispose"><a class="header" href="#dispose">Dispose</a></h1>
 <blockquote>
-<p>Note: This field will set up a scheduled execution with the default values for variables and environment variables. If a more parameterized scheduled job is required please visit the <code>cron</code> cli subcommand.</p>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
 </blockquote>
-<h1 id="dispose"><a class="header" href="#dispose">Dispose</a></h1>
 <p>The dispose field is optional and when set to true, it wont clean up after a pipeline run.</p>
 <p>Specifically</p>
 <ul>
-<li>For machine runs a temporary directory is created under the <code>.bld/tmp/</code> path with a uuid directory for the run.</li>
-<li>For container runs the container itself will not be stopped and removed.</li>
+<li>For the machine platform the temporary directory that is created under the <code>.bld/tmp/</code> path with a Uuid directory for the run, won't be deleted.</li>
+<li>For the container platform the container itself won't be stopped and removed.</li>
+<li>Dispose is ignored for the <code>ssh</code> platform, since the ssh connection will close once the run finishes.</li>
 </ul>
-<h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code>.
+<br /> The syntax between the pipeline versions differ so all examples will be presented for both.</p>
+</blockquote>
 <p>The variables section is a hashmap where the key is the variable name and the value is its default value. The value of a variable can be modified by the user when running the pipeline.</p>
 <p>Based on the first example, that was rather specific, we could enhance our pipeline with a variable to either list the content of the target_directory or another one specified when using the <code>run</code> subcommand. Below is a configured pipeline with a variable</p>
+<p><strong>version 1</strong></p>
+<pre><code class="language-yaml">name: Example pipeline with variables 1
+runs_on: machine
+version: 1
+
+variables:
+  directory: /home/user/target_directory
+
+steps:
+- name: List all content of target_directory
+  exec:
+  - ls bld:var:directory
+</code></pre>
+<p><strong>version 2</strong></p>
 <pre><code class="language-yaml">name: Example pipeline with variables 1
 runs_on: machine
 version: 2
@@ -423,10 +646,28 @@ jobs:
   main:
   - ls ${{directory}}
 </code></pre>
-<p>Here we see the syntax for using a Bld variable, configuring its name and default value. It can be used with the format <code>${{directory}}</code> with the target variable name inside the curly braces. You can run the pipeline normally and leave the value as is or you can use the <code>-v</code> or <code>--variable</code> option of the <code>run</code> subcommand</p>
+<p>Here we see the syntax for using a Bld variable, configuring its name and default value. It can be used with the format <code>bld:var:directory</code> for version 1 and <code>${{directory}}</code> for version 2. You can run the pipeline normally and leave the value as is or you can use the <code>-v</code> or <code>--variable</code> option of the <code>run</code> subcommand</p>
 <pre><code class="language-bash">$ bld run -p example.yaml -v directory=/home/kvl/another_directory
 </code></pre>
 <p>We can define multiple variables</p>
+<p><strong>version 1</strong></p>
+<pre><code class="language-yaml">name: Example pipeline with variables 2
+runs_on: machine
+version: 1
+
+variables:
+  first_directory: /home/user/target_directory
+  second_directory: /home/user/another_directory
+  third_directory: /home/user/yet_another_directory
+
+steps:
+- name: List content of all directories
+  exec:
+  - ls bld:var:first_directory
+  - ls bld:var:second_directory
+  - ls bld:var:third_directory
+</code></pre>
+<p><strong>version 2</strong></p>
 <pre><code class="language-yaml">name: Example pipeline with variables 2
 runs_on: machine
 version: 2
@@ -446,14 +687,19 @@ jobs:
 <pre><code class="language-bash">$ bld run -p example.yaml -v first_directory=some_path -v second_directory=some_other_path -v third_directory=some_yet_another_path
 </code></pre>
 <blockquote>
-<p>Note: The variable fields support expressions so a variable, an environment variable or a built in constant can be used as a variable's default value.</p>
+<p>Note: The variable fields support expressions so a variable, an environment variable or a keyword can be used as a variable's default value.</p>
 </blockquote>
-<h1 id="environment-variables"><a class="header" href="#environment-variables">Environment variables</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="environment-variables"><a class="header" href="#environment-variables">Environment variables</a></h1>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code>.
+<br /> The syntax between the pipeline versions differ so all examples will be presented for both.</p>
+</blockquote>
 <p>Same with the variables section, the environment variables section is a hashmap where the key is the variable name and the value is its default value. The value of an environment variable can be modified the user when running the pipeline.</p>
-<p>Just like with variables, they can be used with the same format as a variable or use the syntax $ syntax.</p>
+<p>Just like with variables, they can be used with the same format as a variable with the <code>bld:env:</code> prefix for version 1 and the <code>${{ ... }}</code> syntax for version 2.</p>
+<p><strong>version 1</strong></p>
 <pre><code class="language-yaml">name: Example pipeline with environment variables 1
 runs_on: machine
-version: 2
+version: 1
 
 environment:
   first_directory: /home/user/target_directory
@@ -462,26 +708,74 @@ environment:
 steps:
 - name: List content of all directories
   exec:
-  - ls ${{first_directory}}
+  - ls bld:env:first_directory
   - ls $second_directory
+</code></pre>
+<p><strong>version 2</strong></p>
+<pre><code class="language-yaml">name: Example pipeline with environment variables 1
+runs_on: machine
+version: 2
+
+environment:
+  first_directory: /home/user/target_directory
+  second_directory: /home/user/another_directory
+
+jobs:
+  main:
+  - name: List content of all directories
+    exec:
+    - ls ${{first_directory}}
+    - ls $second_directory
 </code></pre>
 <p>And specify a different value using the <code>-e</code> or <code>--environment</code> of the <code>run</code> subcommand</p>
 <pre><code class="language-bash">$ bld run -p example.yaml -e first_directory=some_path -e second_directory=some_other_path
 </code></pre>
 <blockquote>
-<p>Note: The environment variable fields support expressions so a variable, an environment variable or a built in constant can be used as a environment variable's default value.</p>
+<p>Note: The environment variable fields support expressions so a variable, an environment variable or a keyword can be used as a environment variable's default value.</p>
 </blockquote>
-<h1 id="keywords"><a class="header" href="#keywords">Keywords</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="keywords"><a class="header" href="#keywords">Keywords</a></h1>
+<blockquote>
+<p>Supported for pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
 <p>This isn't related to any field available to the pipeline syntax but more regarding the expressions. Bld has some built in keywords for specific information about a run, those are</p>
+<h3 id="version-1"><a class="header" href="#version-1">Version 1</a></h3>
+<p>All of the below keywords are used with the <code>bld:run:</code> prefix.</p>
+<ul>
+<li><strong>root_dir</strong> : This is the path to the .bld directory of the project.</li>
+<li><strong>id</strong>: This is the unique uuid for the pipeline run.</li>
+<li><strong>start_time</strong>: The start time of the pipeline run.</li>
+</ul>
+<pre><code class="language-yaml">version: 1
+runs_on: machine
+
+steps:
+    - exec:
+      - echo bld:run:root_dir
+      - echo bld:run:id
+      - echo bld:run:start_time
+</code></pre>
+<h3 id="version-2"><a class="header" href="#version-2">Version 2</a></h3>
+<p>All of the below keywords are used inside the <code>${{ ... }}</code> syntax.</p>
 <ul>
 <li><strong>bld_root_dir</strong>: This is the path to the .bld directory of the project.</li>
+<li><strong>bld_project_dir</strong>: This is the path to the current project directory, that is the parent of the .bld directory.</li>
 <li><strong>bld_run_id</strong>: This is the unique uuid for the pipeline run.</li>
 <li><strong>bld_start_time</strong>: The start time of the pipeline run.</li>
 </ul>
+<pre><code class="language-yaml">version: 2
+runs_on: machine
+
+jobs:
+    main:
+      - echo ${{bld_root_dir}}
+      - echo ${{bld_project_dir}}
+      - echo ${{bld_run_id}}
+      - echo ${{bld_start_time}}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="artifacts"><a class="header" href="#artifacts">Artifacts</a></h1>
 <blockquote>
-<p>All of the above can be used with the expression syntax similar to a variable and environment variable e.g. ${{bld_root_dir}}</p>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
 </blockquote>
-<h1 id="artifacts"><a class="header" href="#artifacts">Artifacts</a></h1>
 <p>This section can be used to send or fetch files to or from a container created by a run. For example let say we create a pipeline that will create a file in an <code>ubuntu</code> container and then fetch it on the current machine.</p>
 <pre><code class="language-yaml">name: Example pipeline for artifacts
 runs_on: ubuntu
@@ -496,7 +790,6 @@ artifacts:
 jobs:
   main:
   - echo 'hello world' &gt; sample_file
-
 </code></pre>
 <p>The artifacts section supports methods <code>get</code> to retrieve files and <code>push</code> to send files to the container. The <code>after</code> field can specify a step instead of a job or it can be omitted in order for the operation to execute before any job or step.</p>
 <pre><code class="language-yaml">name: Example pipeline for artifacts
@@ -519,9 +812,12 @@ jobs:
     - echo 'hello again'
 </code></pre>
 <blockquote>
-<p>Note: The artifacts section support expressions so a variable, an environment variable or a built in constant can be used in the <code>from</code>, <code>to</code> and <code>after</code> fields.</p>
+<p>Note: The artifacts section support expressions so a variable, an environment variable or a keyword can be used in the <code>from</code>, <code>to</code> and <code>after</code> fields.</p>
 </blockquote>
-<h1 id="external"><a class="header" href="#external">External</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="external"><a class="header" href="#external">External</a></h1>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
 <p>The <code>external</code> section can used to declare information about another pipeline (either local or on a remote server) and be invoked by jobs.</p>
 <p>Lets see all 3 ways that an external pipeline can be called. The first way is to simply call it in the exec part of a step.</p>
 <pre><code class="language-yaml">runs_on: ubuntu
@@ -531,7 +827,7 @@ jobs:
   main:
   - ext: child.yaml
 </code></pre>
-<p>The second way is to define a new entry to the external section for the pipeline. This will pick up any values for variables and environment variables are desired for the invokation.</p>
+<p>The second way is to define a new entry to the external section for the pipeline, where values for variables and environment variables can be defined.</p>
 <pre><code class="language-yaml">runs_on: ubuntu
 version: 2
 
@@ -573,7 +869,7 @@ jobs:
   - ext: Call child.yaml on a server
   - ext: Call child-2.yaml on a server
 </code></pre>
-<p>In the external section you can define a server in order to invoke the child pipeline to a Bld server. For example let see the below example that invokes a pipeline to a server called <code>demo</code>.</p>
+<p>As seen above in the external section you can define a server in order to invoke the child pipeline to a Bld server. For example let see the below example that invokes a pipeline to a server called <code>demo</code>.</p>
 <pre><code class="language-yaml">pipeline: Parent pipeline
 runs_on: ubuntu
 version: 2
@@ -582,12 +878,13 @@ external:
 - pipeline: child.yaml
   server: demo
 
-steps:
-- name: Do execute child
-  exec:
-  - ext: child.yaml
+jobs:
+  main:
+  - name: Do execute child
+    exec:
+    - ext: child.yaml
 </code></pre>
-<p>The <code>external</code> section can be configured to pass both variables and environment variables to the target pipeline. See the below example for configuring them</p>
+<p>Additionally as you will already have figured out you can pass both variables and environment variables to the target pipeline. See the below example for configuring them.</p>
 <pre><code class="language-yaml">external:
 - name: Execute child pipeline
   pipeline: child.yaml
@@ -598,22 +895,62 @@ steps:
   - env1: hello world
 </code></pre>
 <blockquote>
-<p>Note: The external section support expressions so a variable, an environment variable or a built in constant can be used in the <code>name</code>, <code>server</code>, <code>pipeline</code>, <code>variables</code> and <code>environment</code> fields.</p>
+<p>Note: The external section support expressions so a variable, an environment variable or a keyword can be used in the <code>name</code>, <code>server</code>, <code>pipeline</code>, <code>variables</code> and <code>environment</code> fields.</p>
 </blockquote>
-<h1 id="jobs"><a class="header" href="#jobs">Jobs</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="jobs-and-steps"><a class="header" href="#jobs-and-steps">Jobs and steps</a></h1>
+<blockquote>
+<p>Jobs are supported in pipeline versions: <code>version 2</code>
+<br />Steps are supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
 <p>The <code>jobs</code> section describes a set of parallel commands to be executed or external pipelines to be invoked. All jobs contain a number of steps with steps having mutliple representation for the level of complexity they want to achieve.</p>
-<p>Let's take a look at an example where a pipeline will execute a single job with multiple steps that print a message to stdout.</p>
+<p>In <code>version 1</code> of the pipeline syntax only steps could be defined and run sequentially, while in <code>version 2</code> jobs were introduced for parallel execution.</p>
+<p>Let's take a look at an example where a <code>version 1</code> pipeline will execute some command in sequential order:</p>
+<pre><code class="language-yaml">name: Example pipeline for multiple steps
+runs_on: machine
+version: 1
+
+steps:
+  - exec:
+    - ls ./some_directory
+    - ls ./some_other_directory
+    - ls ./yet_another_directory
+
+  - exec:
+    - echo 'hello world' &gt; sample_file
+
+  - exec:
+    - curl ifconfig.me
+</code></pre>
+<p>The same example for a <code>version 2</code> pipeline that executes the command but in parallel:</p>
 <pre><code class="language-yaml">name: Example pipeline
 runs_on: machine
 version: 2
 
 jobs:
-  main:
-  - echo 'hello world'
-  - echo 'hello again'
-  - echo 'goodbye'
+  list_content_of_directories:
+  - ls ./some_directory
+  - ls ./some_other_directory
+  - ls ./yet_another_directory
+
+  create_sample_file:
+  - echo 'hello world' &gt; sample_file
+
+  curl_ip_address:
+  - curl ifconfig.me
 </code></pre>
-<p>If you've read the previous section for the external pipelines, you will already know that by using the <code>ext:</code> on one of a job's step, the action taken is to invoke that pipeline, based on the external configuration (if no configuration is present the pipeline is simply run locally).</p>
+<p>If you've read the previous section for the external pipelines, you will already know that by using the <code>ext:</code> key on a step, the action taken is to invoke that pipeline, based on the external configuration (if no configuration is present the pipeline is simply run locally).</p>
+<p><strong>version 1</strong></p>
+<pre><code class="language-yaml">name: Example pipeline
+runs_on: machine
+version: 1
+
+steps:
+  - exec:
+    - ext: example-pipeline-1.yaml
+    - ext: example-pipeline-2.yaml
+    - echo 'hello'
+</code></pre>
+<p><strong>version 2</strong></p>
 <pre><code class="language-yaml">name: Example pipeline
 runs_on: machine
 version: 2
@@ -625,6 +962,27 @@ jobs:
   - echo 'hello'
 </code></pre>
 <p>if a step requires more refined operations such as executing many actions you can define a <code>name</code> and an <code>exec</code> list.</p>
+<p><strong>version 1</strong></p>
+<pre><code class="language-yaml">name: Example pipeline for multiple steps
+runs_on: machine
+version: 1
+
+steps:
+  - name: List the content of directories
+    exec:
+    - ls ./some_directory
+    - ls ./some_other_directory
+    - ls ./yet_another_directory
+
+  - name: Create a sample file
+    exec:
+    - echo 'hello world' &gt; sample_file
+
+  - name: Curl IP address
+    exec:
+    - curl ifconfig.me
+</code></pre>
+<p><strong>version 2</strong></p>
 <pre><code class="language-yaml">name: Example pipeline for multiple steps
 runs_on: machine
 version: 2
@@ -646,18 +1004,48 @@ jobs:
     - curl ifconfig.me
 </code></pre>
 <p>A named step can also have <code>ext</code> entries as shown below</p>
+<p><strong>version 1</strong></p>
+<pre><code class="language-yaml">name: Example pipeline for calling another pipeline
+runs_on: machine
+version: 1
+
+steps:
+  - name: Call another pipeline and list a directory
+    exec:
+    - ext: example-1.yaml
+    - ls ./some_directory
+</code></pre>
+<p><strong>version 2</strong></p>
 <pre><code class="language-yaml">name: Example pipeline for calling another pipeline
 runs_on: machine
 version: 2
 
 jobs:
-  main
+  main:
   - name: Call another pipeline and list a directory
     exec:
     - ext: example-1.yaml
     - ls ./some_directory
 </code></pre>
 <p>You can use the <code>working_dir</code> option to change the target directory for a specific step as show below</p>
+<p><strong>version 1</strong></p>
+<pre><code class="language-yaml">name: Example pipeline
+runs_on: ubuntu
+version: 1
+
+steps:
+  - name: First step
+    working_dir: /some/working/directory
+    exec:
+    - ls ./subdirectory
+    - rm ./subdirectory/file
+
+  - name: Second step
+    working_dir: /another/working/directory
+    exec:
+    - ls ./some-other-dir/
+</code></pre>
+<p><strong>version 2</strong></p>
 <pre><code class="language-yaml">name: Example pipeline
 runs_on: ubuntu
 version: 2
@@ -675,353 +1063,146 @@ jobs:
     exec:
     - ls ./some-other-dir/
 </code></pre>
-<p>Remember that a named step can be used from an artifacts section to transfer data from or to a container.</p>
+<p>Remember that a named step can be used from an artifacts section to transfer data from or to the used platform.</p>
 <blockquote>
-<p>Note: The jobs section support expressions so a variable, an environment variable or a built in constant can be used in all forms of a step and it's fields.</p>
+<p>Note: The jobs section support expressions so a variable, an environment variable or a keyword can be used in all forms of a step and it's fields.</p>
 </blockquote>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="pipeline-v1-syntax"><a class="header" href="#pipeline-v1-syntax">Pipeline V1 syntax</a></h1>
-<p>This page is dedicated in explaining the syntax of the version 1 pipeline files with examples.</p>
-<h1 id="top-level-statements-1"><a class="header" href="#top-level-statements-1">Top level statements</a></h1>
-<p>The list of top level sections for a pipeline are:</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="validation"><a class="header" href="#validation">Validation</a></h1>
+<blockquote>
+<p>Supported in pipeline versions: <code>version 1</code>, <code>version 2</code></p>
+</blockquote>
+<p>Pipelines are run under a set of validation rules that target to help identify issues before the pipeline actually runs. This is the first part of a local run, but validation rules will be executed when a pipeline is pushed in a bld server instance and manually by running the <code>check</code> subcommand.</p>
+<p>The validation rules differ between pipeline versions since the syntax could change drastically,  since the validation are both structural for the yaml file as well as contextual based on what features are used. Below all validation rules for each version will be presented.</p>
+<h2 id="version-1-1"><a class="header" href="#version-1-1">Version 1</a></h2>
+<h3 id="external-pipeline"><a class="header" href="#external-pipeline">external-&gt;pipeline</a></h3>
 <ul>
-<li><strong>name</strong>(optional): A name that will be printed on the execution log.</li>
-<li><strong>runs_on</strong>: The target run platform that can either be <code>machine</code> or the name of a docker image.</li>
-<li><strong>version</strong>: The pipeline syntax version. This helps with backwards compatibility.</li>
-<li><strong>dispose</strong>(optional): A boolean value that when set to true will not clean up after a run.
+<li>Checks if the pipeline file path exists.</li>
+</ul>
+<h3 id="external-server"><a class="header" href="#external-server">external-&gt;server</a></h3>
 <ul>
-<li>For machine runs a temporary directory is created under the <code>.bld/tmp/</code> path with a uuid directory for the run.</li>
-<li>For container runs the container itself will not be stopped and removed.</li>
+<li>Checks if the server name used is found in the <code>.bld/config.yaml</code> file.</li>
 </ul>
-</li>
-<li><strong>variables</strong>(optional): An array of variables that can be used to dynamically replace sections of a step command.</li>
-<li><strong>environment</strong>(optional): An array of environment variables that will be set when executing a step command.</li>
-<li><strong>artifacts</strong>(optional): An array that can configure operations for sending or fetching artifacts from a <code>container</code>.</li>
-<li><strong>external</strong>(optional): An array that can configure execution of other pipelines either in the same Bld instance or to a target server.</li>
-<li><strong>steps</strong>: An array of command to execute, pipelines to call or invoke in a server.</li>
-</ul>
-<p>Let's take for example the below pipeline, with the file name example.yaml, that needs to run on the current <code>machine</code> and list all files in a directory</p>
-<pre><code class="language-yaml">name: Example pipeline 1
-runs_on: machine
-working_dir: /home/user/target_directory
-version: 1
-
-steps:
-- name: List all content of target_directory
-  working_dir: /home/user/target_directory
-  exec:
-  - ls
-</code></pre>
-<h1 id="variables-1"><a class="header" href="#variables-1">Variables</a></h1>
-<p>The variables section is a hashmap where the key is the variable name and the value is its default value. The value of a variable can be modified the user when running the pipeline.</p>
-<p>Based on the previous example, that was rather specific, we could enhance our pipeline with a variable to either list the content of the target_directory or another one specified when using the <code>run</code> subcommand. Below is a configured pipeline with a variable</p>
-<pre><code class="language-yaml">name: Example pipeline with variables 1
-runs_on: machine
-version: 1
-
-variables:
-  directory: /home/user/target_directory
-
-steps:
-- name: List all content of target_directory
-  working_dir: bld:var:directory
-  exec:
-  - ls
-</code></pre>
-<p>Here we see the syntax for using a Bld variable, configuring its name and default value. It can be used with the <code>bld:var:</code> prefix and using the name <code>directory</code> for the variable name. You can run the pipeline normally and leave the value as is or you can use the <code>-v</code> or <code>--variable</code> option of the <code>run</code> subcommand</p>
-<pre><code class="language-bash">$ bld run -p example.yaml -v directory=/home/kvl/another_directory
-</code></pre>
-<p>We can define multiple variables</p>
-<pre><code class="language-yaml">name: Example pipeline with variables 2
-runs_on: machine
-version: 1
-
-variables:
-  first_directory: /home/user/target_directory
-  second_directory: /home/user/another_directory
-  third_directory: /home/user/yet_another_directory
-
-steps:
-- name: List content of all directories
-  exec:
-  - ls bld:var:first_directory
-  - ls bld:var:second_directory
-  - ls bld:var:third_directory
-</code></pre>
-<p>And set new values using the cli</p>
-<pre><code class="language-bash">$ bld run -p example.yaml -v first_directory=some_path -v second_directory=some_other_path -v third_directory=some_yet_another_path
-</code></pre>
-<h1 id="environment-variables-1"><a class="header" href="#environment-variables-1">Environment variables</a></h1>
-<p>Same with the variables section, the environment variables section is a hashmap where the key is the variable name and the value is its default value. The value of an environment variable can be modified the user when running the pipeline.</p>
-<p>Just like with variables, they can used with the <code>bld:env:</code> prefix or use the syntax $ syntax.</p>
-<pre><code class="language-yaml">name: Example pipeline with environment variables 1
-runs_on: machine
-version: 1
-
-environment:
-  first_directory: /home/user/target_directory
-  second_directory: /home/user/another_directory
-
-steps:
-- name: List content of all directories
-  exec:
-  - ls bld:env:first_directory
-  - ls $second_directory
-</code></pre>
-<p>And specify a different value using the <code>-e</code> or <code>--environment</code> of the <code>run</code> subcommand</p>
-<pre><code class="language-bash">$ bld run -p example.yaml -e first_directory=some_path -e second_directory=some_other_path
-</code></pre>
-<h1 id="artifacts-1"><a class="header" href="#artifacts-1">Artifacts</a></h1>
-<p>This section can be used to send or fetch files to or from a container created by a run. For example let say we create a pipeline that will create a file in an <code>ubuntu</code> container and then fetch it on the current machine.</p>
-<pre><code class="language-yaml">name: Example pipeline for artifacts
-runs_on: ubuntu
-version: 1
-
-steps:
-- name: Create a sample file
-  exec:
-  - echo 'hello world' &gt; sample_file
-
-artifacts:
-- method: get
-  from: /sample_file
-  to: /home/user/some_directory
-  after: Create a sample file
-</code></pre>
-<p>The artifacts section supports methods <code>get</code> to retrieve files and <code>push</code> to send files to the container. Additionally the <code>after</code> section can be omitted in order for the operation to execute before any step.</p>
-<h1 id="external-1"><a class="header" href="#external-1">External</a></h1>
-<p>The <code>external</code> section can used to declare information about another pipeline (either local or on a remote server) and be invoked by steps section. Let's see an example with a parent pipeline called <code>parent.yaml</code> that needs to execute a child pipeline called <code>child.yaml</code>.</p>
-<pre><code class="language-yaml">pipeline: Parent pipeline
-runs_on: ubuntu
-version: 1
-
-external:
-- pipeline: child.yaml
-
-steps:
-- name: Do execute child
-  exec:
-  - ext: child.yaml
-</code></pre>
-<p>The above is the simplest form of executing another pipeline locally, but a server option can be provided if the run of the child pipeline needs to be done in another machine. Lets change the above example in order to invoke the child pipeline to a Bld server called <code>demo</code>.</p>
-<pre><code class="language-yaml">pipeline: Parent pipeline
-runs_on: ubuntu
-version: 1
-
-external:
-- pipeline: child.yaml
-  server: demo
-
-steps:
-- name: Do execute child
-  exec:
-  - ext: child.yaml
-</code></pre>
-<p>The <code>external</code> section can be configured to pass both variables and environment variables to the target pipeline. See the below example for configuring them</p>
-<pre><code class="language-yaml">external:
-- name: Execute child pipeline
-  pipeline: child.yaml
-  variables:
-  - variable1: hello
-  - variable2: world
-  environment:
-  - env1: hello world
-</code></pre>
-<p>Lets see all 3 ways that an external pipeline can be called. The first way is to simply call it in the exec part of a step.</p>
-<pre><code class="language-yaml">runs_on: ubuntu
-version: 1
-
-steps:
-- exec:
-  - ext: child.yaml
-</code></pre>
-<p>The second way is to define a new entry to the external section for the pipeline. This will pick up any values for variables and environment variables are desired for the invokation.</p>
-<pre><code class="language-yaml">runs_on: ubuntu
-version: 1
-
-external:
-- pipeline: child.yaml
-  variables:
-    some-variable: an example value
-
-steps:
-- exec:
-  - ext: child.yaml
-</code></pre>
-<p>The third way is to use a name in the external entries in order to have different declarations for the same pipeline.</p>
-<pre><code class="language-yaml">runs_on: ubuntu
-version: 1
-
-external:
-- name: Call child.yaml with a variable
-  pipeline: child.yaml
-  variables:
-    some-variable: an example value
-
-- name: Call child.yaml on a server
-  pipeline: child.yaml
-  server: demo_server
-  variables:
-    some-variable: an example value
-
-steps:
-- exec:
-  - ext: Call child.yaml with a variable
-  - ext: Call child.yaml on a server
-</code></pre>
-<h1 id="steps"><a class="header" href="#steps">Steps</a></h1>
-<p>The <code>steps</code> section describes a set of commands to be executed or external pipelines to be invoked. Lets look at an example where there are multiple steps in a pipeline for listing contents of a directory, creating a sample file and using curl to see the IP address of the machine.</p>
-<pre><code class="language-yaml">name: Example pipeline for multiple steps
-runs_on: machine
-version: 1
-
-steps:
-- name: List the content of directories
-  exec:
-  - ls ./some_directory
-  - ls ./some_other_directory
-  - ls ./yet_another_directory
-
-- name: Create a sample file
-  exec:
-  - echo 'hello world' &gt; sample_file
-
-- name: Curl IP address
-  exec:
-  - curl ifconfig.me
-</code></pre>
-<p>Let's consider now that the above pipeline was called <code>example-1.yaml</code> and we wanted all of its steps to be part of another pipeline called <code>example-2.yaml</code>, we could call the pipeline as shown below.</p>
-<pre><code class="language-yaml">name: Example pipeline for calling another pipeline
-runs_on: machine
-version: 1
-
-steps:
-- name: Call another pipeline and list a directory
-  exec:
-  - ext: example-1.yaml
-  - ls ./some_directory
-</code></pre>
-<p>You can use the <code>working_dir</code> option to change the target directory for a specific step as show below</p>
-<pre><code class="language-yaml">name: Example pipeline
-runs_on: ubuntu
-version: 1
-
-steps:
-- name: First step
-  working_dir: /some/working/directory
-  exec:
-  - ls ./subdirectory
-  - rm ./subdirectory/file
-
-- name: Second step
-  working_dir: /another/working/directory
-  exec:
-  - ls ./some-other-dir/
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-configure-bld"><a class="header" href="#how-to-configure-bld">How to configure bld</a></h1>
-<p>You can edit the <code>config.yaml</code> file inside a <code>.bld</code> directory in order to configure both local options and add new target bld servers.</p>
-<h1 id="local-configuration"><a class="header" href="#local-configuration">Local configuration</a></h1>
-<p>The <code>local</code> section of the configuration has the below options available
-ability mode.</p>
+<h3 id="steps-exec-ext"><a class="header" href="#steps-exec-ext">steps-&gt;exec-&gt;ext</a></h3>
 <ul>
-<li>
-<p><strong>docker_url</strong>: The url with which a connection will be established to the docker engine API.</p>
-</li>
-<li>
-<p><strong>server</strong>: The start of the server section with the below options</p>
+<li>Checks if the external key is found either as a local pipeline or a defined external declaration inside the pipeline itself.</li>
+</ul>
+<h3 id="artifacts-after"><a class="header" href="#artifacts-after">artifacts-&gt;after`</a></h3>
 <ul>
-<li><strong>host</strong>: The host that the server will be exposed to.</li>
-<li><strong>port</strong>: The port that the server will be exposed to.</li>
-<li><strong>tls</strong>: The start of the tls section with the below options
+<li>Checks if the step name in the after key is found in the pipeline's steps.</li>
+</ul>
+<h2 id="version-2-1"><a class="header" href="#version-2-1">Version 2</a></h2>
+<h3 id="runs_on-1"><a class="header" href="#runs_on-1">runs_on</a></h3>
 <ul>
-<li><strong>cert_chain</strong>: The path to a certificate file.</li>
-<li><strong>private_key</strong>: The path to the private key for the above certificate.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
 </ul>
-</li>
-<li><strong>pipelines</strong>: A path to a directory in which the server will store registered pipelines.</li>
-<li><strong>auth</strong>: The authentication section for the server.
+<h3 id="runs_on-name"><a class="header" href="#runs_on-name">runs_on-&gt;name</a></h3>
 <ul>
-<li><strong>method</strong>: A text option that for the current release only accepts the value oidc.</li>
-<li><strong>issuer_url</strong>: The issuer url for the authorization provider.</li>
-<li><strong>redirect_url</strong>: The redirect url of the bld server.</li>
-<li><strong>client_id</strong>: The client id configured in the oidc provider for the bld server.</li>
-<li><strong>client_secret</strong>: The client secret for the bld server.</li>
-<li><strong>scopes</strong>: An array of scopes provided when logging in.</li>
-<li><strong>user_property</strong>: The property that a user will be associated with. Accepts the values name or email.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>supervisor</strong>: The start of the supervisor section</p>
+<h3 id="runs_on-tag"><a class="header" href="#runs_on-tag">runs_on-&gt;tag</a></h3>
 <ul>
-<li><strong>host</strong>: The host that the supervisor will be exposed to.</li>
-<li><strong>port</strong>: The port that the supervisor will be exposed to.</li>
-<li><strong>tls</strong>: The start of the tls section with the below options
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="runs_on-dockerfile"><a class="header" href="#runs_on-dockerfile">runs_on-&gt;dockerfile</a></h3>
 <ul>
-<li><strong>cert_chain</strong>: The path to a certificate file.</li>
-<li><strong>private_key</strong>: The path to the private key of the above certificate.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>Checks if the dockerfile path is valid when no variables or keywords are used.</li>
 </ul>
-</li>
-<li><strong>workers</strong>: A number that indicates how many worker processes can the supervisor spawn. This will be the maximum number of active pipeline runs on a server, with all other being queued.</li>
-</ul>
-</li>
-<li>
-<p><strong>logs</strong>: A path to a directory where the logs for each server run will be stored.</p>
-</li>
-<li>
-<p><strong>db</strong>: A path to a directory where the database file for the server will be created.</p>
-</li>
-<li>
-<p><strong>editor</strong>: The name or path to your editor of choice for editing a pipeline through the bld cli.</p>
-</li>
-</ul>
-<h1 id="remote-configuration"><a class="header" href="#remote-configuration">Remote configuration</a></h1>
-<p>The <code>remote</code> section of the config file is an array of servers that can be targeted. The available options are below.</p>
+<h3 id="runs_on-image"><a class="header" href="#runs_on-image">runs_on-&gt;image</a></h3>
 <ul>
-<li><strong>server</strong>: The name used to target this entry.</li>
-<li><strong>host</strong>: The host address of the server.</li>
-<li><strong>port</strong>: The port of the server.</li>
-<li><strong>tls</strong>: A boolean indicating to use secure protocols when connecting to the server.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
 </ul>
-<h1 id="putting-it-all-together"><a class="header" href="#putting-it-all-together">Putting it all together</a></h1>
-<p>Below is an example configuration with all of the above options</p>
-<pre><code class="language-yaml">local:
-  server:
-     host: localhost
-     port: 6080
-     tls:
-        cert_chain: path/to/server_certificate.crt
-        private_key: path/to/server_private.key
-     auth:
-        method: oidc
-        issuer_url: https://some_issuer_url
-        redirect_url: https://localhost:6080/authRedirect
-        client_id: some_client_id
-        client_secret: some_client_secret
-        scopes: [&quot;scope1&quot;, &quot;scope2&quot;]
-        user_property: email
-     pipelines: .bld/server_pipelines
-  supervisor:
-     host: localhost
-     port: 7080
-     tls:
-        cert_chain: path/to/supervisor_certificate.crt
-        private_key: path/to/supervisor_private.key
-     workers: 50
-  logs: .bld/logs
-  db: .bld/db
-  docker-url: tcp://127.0.0.1:2376
-  editor: vim
-
-remote:
-- server: local_1
-  host: 127.0.0.1
-  port: 6080
-  tls: true
-- server: local_2
-  host: 127.0.0.1
-  port: 8080
-</code></pre>
+<h3 id="runs_on-ssh_config"><a class="header" href="#runs_on-ssh_config">runs_on-&gt;ssh_config</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>If no variables or keywords found then the name is checked in the <code>.bld/config.yaml</code> file in order to find if it has been defined.</li>
+</ul>
+<h3 id="runs_on-host"><a class="header" href="#runs_on-host">runs_on-&gt;host</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="runs_on-port"><a class="header" href="#runs_on-port">runs_on-&gt;port</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="runs_on-user"><a class="header" href="#runs_on-user">runs_on-&gt;user</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="runs_on-userauth-public_key"><a class="header" href="#runs_on-userauth-public_key">runs_on-&gt;userauth-&gt;public_key</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>If no variables or keywords are used then the path is checked if it exists.</li>
+</ul>
+<h3 id="runs_on-userauth-private_key"><a class="header" href="#runs_on-userauth-private_key">runs_on-&gt;userauth-&gt;private_key</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>If no variables or keywords are used then the path is checked if it exists.</li>
+</ul>
+<h3 id="runs_on-userauth-password"><a class="header" href="#runs_on-userauth-password">runs_on-&gt;userauth-&gt;password</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="cron-1"><a class="header" href="#cron-1">cron</a></h3>
+<ul>
+<li>Checks if the defined cron syntax is a valid schedule.</li>
+</ul>
+<h3 id="variables-1"><a class="header" href="#variables-1">variables</a></h3>
+<ul>
+<li>Checks all defined variables if the name is a built in keyword.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="environment"><a class="header" href="#environment">environment</a></h3>
+<ul>
+<li>Checks all defined variables if the name is a built in keyword.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="external-name"><a class="header" href="#external-name">external-&gt;name</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="external-pipeline-1"><a class="header" href="#external-pipeline-1">external-&gt;pipeline</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>Checks if the pipeline file path exists when no variables or keywords are used.</li>
+</ul>
+<h3 id="external-server-1"><a class="header" href="#external-server-1">external-&gt;server</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>Checks if the server name used is found in the <code>.bld/config.yaml</code> file when no variables or keywords are used when no variables or keywords are used.</li>
+</ul>
+<h3 id="external-variables"><a class="header" href="#external-variables">external-&gt;variables</a></h3>
+<ul>
+<li>Checks all defined variables if the name is a built in keyword.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="external-environment"><a class="header" href="#external-environment">external-&gt;environment</a></h3>
+<ul>
+<li>Checks all defined variables if the name is a built in keyword.</li>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="artifacts-from"><a class="header" href="#artifacts-from">artifacts-&gt;from</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="artifacts-to"><a class="header" href="#artifacts-to">artifacts-&gt;to</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
+<h3 id="artifacts-after-1"><a class="header" href="#artifacts-after-1">artifacts-&gt;after</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>Checks if the step name in the after key is found in the pipeline's jobs or steps when no variables or keywords are used.</li>
+</ul>
+<h3 id="steps-exec-ext-1"><a class="header" href="#steps-exec-ext-1">steps-&gt;exec-&gt;ext</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+<li>Checks if the external key is found either as a local pipeline or a defined external declaration inside the pipeline itself.</li>
+</ul>
+<h3 id="steps-exec-working_dir"><a class="header" href="#steps-exec-working_dir">steps-&gt;exec-&gt;working_dir</a></h3>
+<ul>
+<li>Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="server-mode"><a class="header" href="#server-mode">Server mode</a></h1>
 <p>Bld can run in server mode in order to run, push, pull, list pipelines and more. This section of the book goes into more detail on some of features of a server.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-start-a-server"><a class="header" href="#how-to-start-a-server">How to start a server</a></h1>
@@ -1061,6 +1242,36 @@ remote:
 <pre><code class="language-bash">$ bld run -s example_server -p sample.yaml
 </code></pre>
 <p>This will start the execution on the server side and keep a web socket connection in order to see in real time the output of the pipeline. Use the <code>--detach</code> flag to detach from the run. This will send a request to start the run and return immediately.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="database"><a class="header" href="#database">Database</a></h1>
+<blockquote>
+<p><span style="color:red">IMPORTANT!</span> prior to the v0.3 release bld used the <code>diesel</code> crate for connecting to an <code>sqlite</code> database but from v0.3 onwards the project migrated to <code>SeaOrm</code> and now supports <code>postgres</code>, <code>mysql</code> as well as <code>sqlite</code> as a database. Due to this change projects running a server in prior versions will have issues with migrations since this was a breaking change.</p>
+</blockquote>
+<p>Bld supports connecting to a <code>postgres</code>, <code>mysql</code> or <code>sqlite</code> databases. To do so you need to provide an appropriate connection url in the <code>.bld/config.yaml</code> file. Below there are examples on how you can configure the url for all 3 backends.</p>
+<h3 id="postgres"><a class="header" href="#postgres">Postgres</a></h3>
+<pre><code class="language-yaml">local:
+    server:
+        db: postgres://some_user:some_password@127.0.0.1/bld-server
+</code></pre>
+<p>And an example using an explicit port:</p>
+<pre><code class="language-yaml">local:
+    server:
+        db: postgres://some_user:some_password@127.0.0.1:8888/bld-server
+</code></pre>
+<h3 id="mysql"><a class="header" href="#mysql">Mysql</a></h3>
+<pre><code class="language-yaml">local:
+    server:
+        db: mysql://some_user:some_password@127.0.0.1/bld-server
+</code></pre>
+<p>And an example using an explicit port:</p>
+<pre><code class="language-yaml">local:
+    server:
+        db: mysql://some_user:some_password@127.0.0.1:8888/bld-server
+</code></pre>
+<h3 id="sqlite"><a class="header" href="#sqlite">Sqlite</a></h3>
+<pre><code class="language-yaml">local:
+    server:
+        db: sqlite:///some/path/to/.bld/db/bld-server.db
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="authorization"><a class="header" href="#authorization">Authorization</a></h1>
 <p>Server mode does not have it's own authorization method but it uses external services. The only current method is using an existing oidc provider with an example below.</p>
 <h2 id="configuration-of-server-to-validate-user-using-googles-oidc"><a class="header" href="#configuration-of-server-to-validate-user-using-googles-oidc">Configuration of server to validate user using google's oidc</a></h2>
@@ -1124,6 +1335,134 @@ remote:
       port: 6080
       tls: true
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ssh"><a class="header" href="#ssh">SSH</a></h1>
+<p>One of the supported platforms is <code>ssh</code> which lets a pipeline execute all commands using a ssh connection. This part of the book isn't neccessarily only for bld servers but for local configurations as well.</p>
+<p>In the <code>.bld/config.yaml</code> file you can define a <code>ssh</code> section that accepts keys/values for a number of ssh configurations, with an example shown below:</p>
+<pre><code class="language-yaml">local:
+    ssh:
+        test_server_1:
+            host: 192.168.122.3
+            user: test_user
+            userauth:
+                type: keys
+                public_key: /path/to/public_key
+                private_key: /path/to/private_key
+        test_server_2:
+            host: 192.168.122.4
+            user: test_user_2
+            userauth:
+                type: password
+                password: some_password
+        test_server_3:
+            host: 192.168.122.5
+            user: test_user_3
+            userauth:
+                type: agent
+</code></pre>
+<p>And use one of the above keys in a pipeline as shown below:</p>
+<pre><code class="language-yaml">version: 2
+runs_on:
+    ssh_config: test_server_1
+
+jobs:
+    main:
+    - echo hello world
+</code></pre>
+<p>The <code>ssh</code> configuration is similar to the one described in the <code>Pipelines &gt; Runs on</code> section but for quick reference they will be presented here as well.</p>
+<p>This configuration always expects the <code>host</code>, <code>user</code> and <code>userauth</code> fields with the <code>port</code> field being optional having a default value of <code>port: 22</code> if not provided. Additionally the <code>userauth</code> field has 3 types of authentication that can be defined.</p>
+<h3 id="password-user-authentication-1"><a class="header" href="#password-user-authentication-1">Password user authentication</a></h3>
+<p>The password authentication type for the ssh platform uses a password directly that is passed to the ssh connection when that is established. To define such user authentication you can use the below statement:</p>
+<pre><code class="language-yaml">userauth:
+    type: password
+    password: the_user_password
+</code></pre>
+<h3 id="keys-user-authentication-1"><a class="header" href="#keys-user-authentication-1">Keys user authentication</a></h3>
+<p>The keys authentication type uses a private and a public key when establishing the ssh connection, and such a configuration can be done using the below statement:</p>
+<pre><code class="language-yaml">userauth:
+    type: keys
+    public_key: /path/to/public_key
+    private_key: /path/to/private_key
+</code></pre>
+<p>The <code>private_key</code> field is mandatory but the <code>public_key</code> is optional.</p>
+<h3 id="agent-user-authentication-1"><a class="header" href="#agent-user-authentication-1">Agent user authentication</a></h3>
+<p>This type attemps to perform ssh agent authentication and can be configured using the below statement:</p>
+<pre><code class="language-yaml">userauth:
+    type: agent
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="github-action"><a class="header" href="#github-action">Github action</a></h1>
+<p>Bld has it's own custom github action called the <a href="https://github.com/marketplace/actions/bld-action">bld-action</a>. It's use case is to enable bld pipelines to run as part of a github workflow.</p>
+<h2 id="how-to-use"><a class="header" href="#how-to-use">How to use</a></h2>
+<p>This action runs under the current repository and will look for a valid bld project with a <code>.bld</code>directory. The action exposes a couple of arguments that can configure a run, and are similar to the options available to the <code>run</code> sub-command, since internally the action will invoke it to execute the pipeline. The available arguments are:</p>
+<ul>
+<li>pipeline: The name of the pipeline.</li>
+<li>server: The name of the server configuration that exists in the <code>.bld/config.yaml</code>.</li>
+<li>variables: A list of key values.</li>
+<li>environment: A list of key values.</li>
+</ul>
+<p>Due to how the variables and environment variables are passed to the <code>run</code> sub-command you will need to use the below syntax to pass mulitple values in the workflow yaml file.</p>
+<pre><code class="language-yaml">variables: |-
+   var1=hello
+   var2=world
+</code></pre>
+<h2 id="example-usage-in-the-bld-repository"><a class="header" href="#example-usage-in-the-bld-repository">Example usage in the bld repository</a></h2>
+<p>The <code>build-musl.yaml</code> pipeline that is responsible for creating the musl build of Bld uses a Dockerfile defined inside of the repository's <code>.bld</code> directory and executes a build of a specified branch with the default being master.</p>
+<pre><code class="language-yaml">name: Bld build pipeline for musl
+version: 2
+runs_on:
+  name: bld-musl-builder
+  dockerfile: ${{bld_root_dir}}/Dockerfile
+  tag: latest
+
+variables:
+    branch: master
+
+jobs:
+  main:
+  - working_dir: /usr/src
+    exec:
+    - echo 'Cloning repository on branch ${{branch}}'
+    - git clone -b ${{branch}} https://github.com/Kani-Maki-Gang/bld.git
+  - working_dir: /usr/src/bld
+    exec:
+    - cargo build --release --target x86_64-unknown-linux-musl
+
+artifacts:
+  - method: get
+    from: /usr/src/bld/target/x86_64-unknown-linux-musl/release/bld
+    to: ./dist
+    after: main
+</code></pre>
+<p>The github workflow uses the <code>bld-action</code> to run the <code>build-musl.yaml</code> pipeline under the current branch that the workflow was run on.</p>
+<pre><code class="language-yaml">name: bld main workflow
+
+on:
+  push:
+    branches: [&quot;master&quot;]
+  pull_request:
+    branches: [&quot;master&quot;]
+
+jobs:
+  build_musl:
+    runs-on: ubuntu-latest
+    name: Bld musl binary
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get branch name
+        id: get_branch_name
+        shell: bash
+        run: echo &quot;branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}&quot; &gt;&gt; $GITHUB_OUTPUT
+      - name: Run bld pipeline
+        uses: Kani-Maki-Gang/bld-github-action@v0.2.1-alpha
+        with:
+          pipeline: 'build-musl.yaml'
+          variables: |-
+            branch=${{ steps.get_branch_name.outputs.branch }}
+</code></pre>
+<blockquote>
+<p><strong>Note</strong>: The pipeline will be run using the <code>.bld/config.yaml</code> found in the repository.
+<br /><strong>Note</strong>: This action is still in alpha, one limitation is that the connection to docker needs to be specifically done using its unix socket since bld can't change how docker is started under the github workflow.</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-interface"><a class="header" href="#command-line-interface">Command line interface</a></h1>
 <p>This section lists all available subcommands for the bld binary.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cat"><a class="header" href="#cat">Cat</a></h1>
@@ -1163,7 +1502,22 @@ $ bld check -s local_server -p example_pipeline.yaml
 <pre><code class="language-bash">$ bld config
 $ bld config -e # to edit the config file
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="cron-1"><a class="header" href="#cron-1">Cron</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cp"><a class="header" href="#cp">Cp</a></h1>
+<p>The <code>cp</code> sub-command will copy local or server pipelines.</p>
+<p><strong>options</strong></p>
+<ul>
+<li>--verbose              Sets the level of verbosity</li>
+<li>-p, --pipeline <PIPELINE>  The pipeline to copy</li>
+<li>-t, --target <TARGET>      The target path</li>
+<li>-s, --server <SERVER>      The name of the server to execute the copy operation</li>
+<li>-h, --help                 Print help</li>
+<li>-V, --version              Print version</li>
+</ul>
+<p><strong>usage</strong></p>
+<pre><code class="language-bash">$ bld cp -p source_pipeline.yaml -t target_pipeline.yaml # Copy local pipelines
+$ bld cp -p source_pipeline.yaml -t target_pipeline.yaml -s local_server # Copy server pipelines
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cron-2"><a class="header" href="#cron-2">Cron</a></h1>
 <p>The <code>cron</code> subcommand provides functionality from manipulating cron jobs in a server.</p>
 <p><strong>commands</strong></p>
 <ul>
@@ -1345,6 +1699,21 @@ $ bld ls -s local_server # To list server pipelines
 $ bld monit -s local_server -i 8f0159e0-7f5c-4dc6-9b1a-70a219d85450
 $ bld monit --last
 $ bld monit -s local_server --last
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mv"><a class="header" href="#mv">Mv</a></h1>
+<p>The <code>mv</code> sub-command will move local or server pipelines.</p>
+<p><strong>options</strong></p>
+<ul>
+<li>--verbose              Sets the level of verbosity</li>
+<li>-p, --pipeline <PIPELINE>  The pipeline to move</li>
+<li>-t, --target <TARGET>      The target path</li>
+<li>-s, --server <SERVER>      The name of the server to execute the move operation</li>
+<li>-h, --help                 Print help</li>
+<li>-V, --version              Print version</li>
+</ul>
+<p><strong>usage</strong></p>
+<pre><code class="language-bash">$ bld mv -p source_pipeline.yaml -t target_pipeline.yaml # Move local pipelines
+$ bld mv -p source_pipeline.yaml -t target_pipeline.yaml -s local_server # Move server pipelines
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pull"><a class="header" href="#pull">Pull</a></h1>
 <p>The <code>pull</code> sub-command will fetch the content of a pipeline from a Bld server.</p>
