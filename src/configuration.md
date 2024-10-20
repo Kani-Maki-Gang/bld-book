@@ -36,6 +36,11 @@ ability mode.
 
 * __ssh__: The ssh global configuration that pipelines can use to establish an ssh connection.
 
+* __registries__ `new to v0.4.x`: A section to define properties about available registries and credentials to access them if they are private.
+  * __url__: The url of the registry.
+  * __username__ `optional`: The username to access the registry.
+  * __password__ `optional`: The password to access the registry.
+
 # Remote configuration
 The `remote` section of the config file is an array of servers that can be targeted. The available options are below.
 * __server__: The name used to target this entry.
@@ -100,6 +105,13 @@ local:
          user: test_user_3
          userauth:
              type: agent
+  registries:
+    docker_io:
+        url: https://docker.io
+    ghcr:
+        url: https://ghcr.io
+        username: some_username
+        password: some_password
 
 remote:
 - server: local_1

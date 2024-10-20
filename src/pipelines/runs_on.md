@@ -60,6 +60,25 @@ runs_on:
     docker_url: unix_socket_docker_url
 ```
 
+Last but not least you can define the docker registry to be used for the pull operation based on the defined registries in the bld configuration file or by setting a specific configuration for the pipeline.
+
+```yaml
+# Look up the registry in the global configuration
+runs_on:
+    image: ubuntu:20.04
+    pull: true
+    registry: ghcr
+
+# Define the registry in the pipeline configuration
+runs_on:
+    image: ubuntu:20.04
+    pull: true
+    registry:
+        url: ghcr.io
+        username: some_username
+        password: some_password
+```
+
 ### Run commands on images built from a Dockerfile
 
 > Supported in pipeline versions: `version 2`
