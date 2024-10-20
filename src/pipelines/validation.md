@@ -37,6 +37,10 @@ The validation rules differ between pipeline versions since the syntax could cha
 ### runs_on->image
 * Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.
 
+### runs_on->docker_url
+* Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.
+* Checks if a single url has been defined in the config file or if the name matches one of the multiple urls defined (when no variables or keywords are used).
+
 ### runs_on->ssh_config
 * Checks for use of variables, environment variables or keywords and if their name is defined in the pipeline.
 * If no variables or keywords found then the name is checked in the `.bld/config.yaml` file in order to find if it has been defined.

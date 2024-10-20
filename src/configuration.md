@@ -4,7 +4,7 @@ You can edit the `config.yaml` file inside a `.bld` directory in order to config
 # Local configuration
 The `local` section of the configuration has the below options available
 ability mode.
-* __docker_url__: The url with which a connection will be established to the docker engine API.
+* __docker_url__: The url with which a connection will be established to the docker engine API. This can be either a single url or multiple urls, defined with a name and the ability to set a default.
 
 * __server__: The start of the server section with the below options
   * __host__: The host that the server will be exposed to.
@@ -72,7 +72,14 @@ local:
         cert_chain: path/to/supervisor_certificate.crt
         private_key: path/to/supervisor_private.key
      workers: 50
-  docker-url: tcp://127.0.0.1:2376
+  # Using a single docker url
+  # docker_url: unix:///var/run/docker.sock
+  # Multiple docker urls
+  docker_url:
+    unix:
+        url: unix:///var/run/docker.sock
+        default: true
+    tcp: tcp://127.0.0.1:2376
   editor: vim
   ssh:
      test_server_1:

@@ -51,6 +51,15 @@ runs_on:
     pull: true
 ```
 
+Optionally you can specify the docker url to be used for the pull operation based on the defined urls in the bld configuration file. Remember that the docker url is the name of the target url.
+
+```yaml
+runs_on:
+    image: ubuntu:20.04
+    pull: true
+    docker_url: unix_socket_docker_url
+```
+
 ### Run commands on images built from a Dockerfile
 
 > Supported in pipeline versions: `version 2`
@@ -62,6 +71,16 @@ runs_on:
     dockerfile: /path/to/dockerfile
     name: custom-image
     tag: latest
+```
+
+Optionally you can specify the docker url to be used for the pull operation based on the defined urls in the bld configuration file. Remember that the docker url is the name of the target url.
+
+```yaml
+runs_on:
+    dockerfile: /path/to/dockerfile
+    name: custom-image
+    tag: latest
+    docker_url: unix_socket_docker_url
 ```
 
 ## Ssh platform
