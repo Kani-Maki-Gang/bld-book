@@ -4,7 +4,7 @@ You can edit the `config.yaml` file inside a `.bld` directory in order to config
 # Local configuration
 The `local` section of the configuration has the below options available
 ability mode.
-* __docker_url__: The url with which a connection will be established to the docker engine API.
+* __docker_url__: The url with which a connection will be established to the docker engine API. This can be either a single url or multiple urls, defined with a name and the ability to set a default.
 
 * __server__: The start of the server section with the below options
   * __host__: The host that the server will be exposed to.
@@ -35,6 +35,11 @@ ability mode.
 * __editor__: The name or path to your editor of choice for editing a pipeline through the bld cli.
 
 * __ssh__: The ssh global configuration that pipelines can use to establish an ssh connection.
+
+* __registries__ `new to v0.4.x`: A section to define properties about available registries and credentials to access them if they are private.
+  * __url__: The url of the registry.
+  * __username__ `optional`: The username to access the registry.
+  * __password__ `optional`: The password to access the registry.
 
 # Remote configuration
 The `remote` section of the config file is an array of servers that can be targeted. The available options are below.
@@ -72,7 +77,14 @@ local:
         cert_chain: path/to/supervisor_certificate.crt
         private_key: path/to/supervisor_private.key
      workers: 50
-  docker-url: tcp://127.0.0.1:2376
+  # Using a single docker url
+  # docker_url: unix:///var/run/docker.sock
+  # Multiple docker urls
+  docker_url:
+    unix:
+        url: unix:///var/run/docker.sock
+        default: true
+    tcp: tcp://127.0.0.1:2376
   editor: vim
   ssh:
      test_server_1:
@@ -93,6 +105,13 @@ local:
          user: test_user_3
          userauth:
              type: agent
+  registries:
+    docker_io:
+        url: https://docker.io
+    ghcr:
+        url: https://ghcr.io
+        username: some_username
+        password: some_password
 
 remote:
 - server: local_1

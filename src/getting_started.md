@@ -15,6 +15,8 @@ Additionally the project requires some external dependencies:
 - libssl-dev
 - libsqlite3-dev
 - (optional) docker
+- (optional) trunk (for the server UI)
+- (optional) nodejs (for the server UI)
 
 > The package names are for Debian based distributions, install the appropriate packages on your distribution of choice.
 
@@ -27,25 +29,33 @@ $ cargo build --release
 $ ./target/release/bld --version
 ```
 
-### Musl builds
-Since there are multiple dependencies deployment of bld can be difficult, so the project supports targeting musl for static linking. If you have an existing bld binary locally built/installed then follow the below instructions. This steps require a docker installation.
+> The bld_server crate requires for a `static_files` directory to exist in its project structure and if it doesn't build error will appear since it tries to embed all of its files to the resulting binary. There is a `build.rs` file for the project that creates the directory but if you encounter any issues, create the directory manually.
+
+Bld also has a UI for its server that you can build it by running the below command
+```bash
+$ cd crates/bld_ui
+$ trunk build
+```
+
+> Remember to have the trunk and nodejs installed in order to build the UI.
+
+### Musl and Mingw builds
+Since there are multiple dependencies deployment of bld can be difficult, so the project supports targeting musl for static linking in Unix like operating systems while supports mingw for Windows. If you have an existing bld binary locally built/installed then follow the below instructions. This steps require a docker, podman or other container engine installed.
 
 ```bash
-$ bld run -p build-musl.yaml
+$ bld run -p pipelines/build.yaml
 $ ls dist
 ```
 
 Or you can use cargo to built bld for your system and then run the pipelines for the musl build
 ```bash
-$ cargo run -- run -p build-musl.yaml
+$ cargo run -- run -p pipelines/build.yaml
 $ ls dist
 ```
 
-With the above a new container will be built with all the necessary dependencies for building the project and the bld pipeline will clone the repository, build the binary and the copy it in the musl/dist directory.
+With the above a new container will be built with all the necessary dependencies for building the project and the bld pipeline will clone the repository, build the binary and the copy it in the dist directory.
 
-If a bld binary is not available, you will have to start a container with the bld-musl-builder and do the steps manually.
-
-> The project currently targets only Linux. It has not been tested on Windows or Macos.
+If a bld binary is not available, you will have to start a container with the bld-image and do the steps manually.
 
 # Installation
 For a prebuilt version of bld go to the github [releases](https://github.com/Kani-Maki-Gang/bld/releases) page and download the latest version.
